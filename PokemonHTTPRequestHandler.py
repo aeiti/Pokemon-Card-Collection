@@ -1,3 +1,5 @@
+# Adam Manning 2021
+
 from DBController import DBController
 
 from http.server import BaseHTTPRequestHandler
@@ -7,8 +9,12 @@ import json
 
 numRequests = 0
 
-cTypeJSON = "application/json"
-cTypeHTML = "text/html"
+# Headers
+header_ContentType = "Content-Type"
+header_CORS = "Access-Control-Allow-Origin"
+
+content_TypeJSON = "application/json"
+content_TypeHTML = "text/html"
 
 html = "text/html"
 #json = "application/json"
@@ -65,7 +71,7 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         f.close()
 
     def enableCORS(self):
-        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header(header_CORS, "*")
 
     def sendCode404(self):
         self.send_response(404)
@@ -73,7 +79,7 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def sendPage404(self):
         self.send_response(404)
-        self.send_header("Content-Type", "text/html")
+        self.send_header(header_ContentType, "text/html")
         self.readPageFromFile(err404)
 
     def getCardFromDB(self):

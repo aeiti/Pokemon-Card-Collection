@@ -13,5 +13,6 @@ def main():
 
     server.serve_forever()
 
+# Only start the server is the script is run as the main file
 if __name__ == "__main__":
     main()

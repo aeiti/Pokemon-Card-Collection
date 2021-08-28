@@ -1,6 +1,9 @@
+ # Adam Manning 2021
+
 import sqlite3
 
-import queries # All queries are stored here
+# All queries are stored here
+import queries
 
 def dict_factory(cursor, row):
     d = {}

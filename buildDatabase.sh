@@ -1,3 +1,5 @@
+ # Adam Manning 2021
+
 echo "Are you sure you want to build the database? All existing data will be erased"
 echo "yes or no (y/n):"
 read choice

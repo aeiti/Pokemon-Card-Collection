@@ -1,3 +1,5 @@
+ # Adam Manning 2021
+
 createCard = "INSERT INTO cards (s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
 deleteCard = "DELETE FROM cards WHERE id=?"

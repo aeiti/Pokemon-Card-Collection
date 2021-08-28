@@ -1,4 +1,4 @@
-// Adam Manning 2017
+// Adam Manning 2021
 
 const serverURL = "http://localhost:8080/";
 
@@ -28,8 +28,6 @@ const WATER     = "#6890F0";
 // Location of image files
 const imgDir = "img/"
 
-var initialLoadCards = true;
-
 // Divs
 var divCards = getElem("#cards");
 
@@ -39,7 +37,7 @@ var txtAtkName1 = getElem("#atkName1");
 var txtAtkName2 = getElem("#atkName2");
 var txtHP       = getElem("#pokemon_hp");
 
-// Select inputs
+// Select inputs - drop down menues
 var selAtkType1 = getElem("#atkType1");
 var selAtkType2 = getElem("#atkType2");
 var selCardType = getElem("#pokemon_type");
@@ -50,10 +48,10 @@ var selSpecies  = getElem("#pokemon_species");
 var hidPokemonId = getElem("#p_id");
 
 // Arrays
-var arrCards    = [];
-var arrNames    = [];
-var arrRarities = [];
-var arrTypes    = [];
+var arrCards    = []; // Used to store the card objects retrieved from database
+var arrNames    = []; // Used to store the names of all pokemon in database
+var arrRarities = []; // Used to store all possible rarities from database
+var arrTypes    = []; // Used to store all possible types from database
 
 // Previous card in form
 var prevName;
@@ -81,14 +79,15 @@ var btnCancelUpdate = getElem("#btnCancelUpdate");
 
 // For debugging only
 var outputFlag = true;
-function print(arg)
+function log(arg)
 {
   if(outputFlag)
   {
-    console.log(arg);
+    console.log("[***LOG:  " + arg + "***]");
   }
 }
 
+// Event handler - Handles adding a card to the database
 function btnAddCardOnClick()
 {
   if(isValidFormData())
@@ -112,17 +111,19 @@ function btnAddCardOnClick()
   } // End if(validFormData)
 } // End btnAddCardOnClick()
 
+// Event handler - clears the form when the "Clear Form" button is clicked
 function btnClearFormOnClick()
 {
   resetForm();
-  print("Form reset");
+  log("Form reset");
 
 }
-// Handler for updating card details. Sends new information to server
+
+// Event handler - Sends updated card details to server when the update button is clicked
 function btnUpdateCardOnClick()
 {
   if(isValidFormData()){
-    print("Form data is valid");
+    log("Form data is valid");
 
     let data = encodeFormData();
 
@@ -159,24 +160,24 @@ function btnCancelUpdateOnClick()
 // Only set form buttons
 function setEventHandlers()
 {
-  print("Setting event handlers...");
+  log("Setting event handlers...");
 
   btnAddCard.onclick      = btnAddCardOnClick;
   btnClearForm.onclick    = btnClearFormOnClick;
   btnUpdateCard.onclick   = btnUpdateCardOnClick;
   btnCancelUpdate.onclick = btnCancelUpdateOnClick;
 
-  print("Finished setting event handlers");
+  log("Finished setting event handlers");
 }
 
 // Creates a <button> element
 function makeButton()
 {
-  print("Creating <button>");
+  log("Creating <button>");
 
   let button = document.createElement("button");
 
-  print("Finished creating <button>")
+  log("Finished creating <button>")
 
   return button;
 }
@@ -184,11 +185,11 @@ function makeButton()
 // Creates a <div> element
 function makeDiv()
 {
-  print("Creating <div>")
+  log("Creating <div>")
 
   let div = document.createElement("div");
 
-  print("Finished creating <div>")
+  log("Finished creating <div>")
 
   return div;
 }
@@ -196,11 +197,11 @@ function makeDiv()
 // Creates a <img> element
 function makeImg()
 {
-  print("Creating <img>")
+  log("Creating <img>")
 
   let img = document.createElement("img");
 
-  print("Finished creating <img>")
+  log("Finished creating <img>")
 
   return img;
 }
@@ -216,54 +217,54 @@ function addOptionToSelect(sel, value, text)
 
 function makeCardImg(card)
 {
-  print("Creating CardImg");
+  log("Creating CardImg");
 
   let img = makeImg();
   img.className = "cardImg";
 
   let id = card["s_id"];
-  print("Species: " + id);
+  log("Species: " + id);
 
   img.src = imgDir + id + ".gif";
   img.alt = arrNames[id - 1].name; //Should subtract 1
 
-  print("Finished creating CardImg");
+  log("Finished creating CardImg");
 
   return img;
 }
 
 function makeCardImgContainer()
 {
-  print("Creating CardImageContainer");
+  log("Creating CardImageContainer");
 
   let imgContainer = makeDiv();
   imgContainer.className = "cardImgContainer";
 
-  print("Finished creating CardImageContainer");
+  log("Finished creating CardImageContainer");
 
   return imgContainer;
 }
 
 function makeCardTextContainer()
 {
-  print("Creating CardTextContainer");
+  log("Creating CardTextContainer");
 
   let txtContainer = makeDiv();
   txtContainer.className = "cardTextContainer";
 
-  print("Finished creating CardTextContainer");
+  log("Finished creating CardTextContainer");
 
   return txtContainer;
 }
 
 function makeCardEditButton(card){
-  print("Creating CardEditButton");
+  log("Creating CardEditButton");
 
   let editButton = makeButton();
   editButton.innerHTML = "Edit Details"
   editButton.onclick = function()
   {
-    print("Editing card with id(" + card["id"] + ")");
+    log("Editing card with id(" + card["id"] + ")");
 
     txtCardName.value = card["name"];
     txtHP.value = card["hp"]
@@ -298,13 +299,13 @@ function makeCardEditButton(card){
     switchToUpdateMode();
   } // newCardEditButton.onclick
 
-  print("Finished creating CardEditButton");
+  log("Finished creating CardEditButton");
   return editButton;
 }
 
 function makeCardDeleteButton(card)
 {
-  print("Creating CardDeleteButton");
+  log("Creating CardDeleteButton");
 
   let deleteButton = makeButton();
   deleteButton.innerHTML = "Delete Card";
@@ -314,7 +315,7 @@ function makeCardDeleteButton(card)
 
     if(willDelete)
     {
-      print(willDelete);
+      log(willDelete);
 
       fetch
       (
@@ -329,7 +330,7 @@ function makeCardDeleteButton(card)
         {
           let tempResponse = response.clone();
 
-          print(tempResponse);
+          log(tempResponse);
 
           return tempResponse;
         }
@@ -344,80 +345,80 @@ function makeCardDeleteButton(card)
     }
   } // newCardDeleteButton.onclick
 
-  print("Finished creating CardDeleteButton");
+  log("Finished creating CardDeleteButton");
 
   return deleteButton;
 }
 
 function makeCardDiv(card)
 {
-  print("Creating CardDiv");
+  log("Creating CardDiv");
 
   let cardDiv = makeDiv();
   cardDiv.className = "cardDiv";
   cardDiv.id = "card" + arrNames[card["s_id"]];
 
-  print("Finished creating CardDiv");
+  log("Finished creating CardDiv");
 
   return cardDiv;
 }
 
 function makeNameDiv(card)
 {
-  print("Creating NameDiv");
+  log("Creating NameDiv");
 
   let nameDiv = makeDiv();
   nameDiv.innerHTML = "Name: " + card["name"];
 
-  print("Finished creating NameDiv");
+  log("Finished creating NameDiv");
 
   return nameDiv;
 }
 
 function makeHPDiv(card)
 {
-  print("Creating HPDiv");
+  log("Creating HPDiv");
 
   let hpDiv = makeDiv();
   hpDiv.innerHTML = "HP: " + card["hp"];
 
-  print("Finished creating HPDiv");
+  log("Finished creating HPDiv");
 
   return hpDiv;
 }
 
 function makeSpeciesDiv(card)
 {
-  print("Creating SpeciesDiv");
+  log("Creating SpeciesDiv");
 
   let speciesDiv = makeDiv();
   speciesDiv.innerHTML = "Species: " + arrNames[card["s_id"] - 1].name;
 
-  print("Finished creating SpeciesDiv");
+  log("Finished creating SpeciesDiv");
 
   return speciesDiv;
 }
 
 function makeTypeDiv(card)
 {
-  print("Creating TypeDiv");
+  log("Creating TypeDiv");
 
   let typeDiv = makeDiv();
   typeDiv.innerHTML = "Type: " + arrTypes[card["type"]].type;
 
-  print("Finished creating TypeDiv");
+  log("Finished creating TypeDiv");
 
   return typeDiv;
 }
 
 function pickGradient(card)
 {
-  print("Chosing gradient...");
+  log("Chosing gradient...");
 
   let gradientColor = "";
   let gradientType = arrTypes[card["type"]].type.toLowerCase();
 
-  print(gradientType);
+  log(gradientType);
 
   switch (gradientType)
   {
@@ -442,17 +443,17 @@ function pickGradient(card)
     default:          gradientColor = "";        break;
   } // switch
 
-  print("Gradient chosen: " + gradientColor)
+  log("Gradient chosen: " + gradientColor)
   return gradientColor;
 }
 
 function setGradient(elem, color1, color2)
 {
-  print("Setting gradient");
+  log("Setting gradient");
 
   elem.style = "background: linear-gradient(" + String(color1) + "," + String(color2) + ");";
 
-  print("Gradient set");
+  log("Gradient set");
 }
 
 // function scrollToBottomOfCards(){
@@ -473,7 +474,7 @@ function getElem(name)
 
 function resetForm()
 {
-  print("Resetting form...");
+  log("Resetting form...");
 
   txtCardName.value = "";
   txtAtkName1.value = "";
@@ -486,53 +487,53 @@ function resetForm()
   selRarity.selectedIndex   = 0;
   selSpecies.selectedIndex  = 0;
 
-  print("Finished resetting form");
+  log("Finished resetting form");
 }
 
 function isValidFormData()
 {
-  print("Checking for valid form data...");
+  log("Checking for valid form data...");
 
   let validFormData = true;
 
   let reqName = document.querySelector("#reqName");
   let reqHP = document.querySelector("#reqHP");
 
-  print("Checking HP...");
+  log("Checking HP...");
 
   if(txtHP.value <= 0)
   {
     reqHP.className = "error";
     validFormData = false;
-    print("Invalid data found: HP <= 0");
+    log("Invalid data found: HP <= 0");
   }
   else
   {
     reqHP.className = "reqField";
-    print("HP OK");
+    log("HP OK");
   }
 
-  print("Checking name...")
+  log("Checking name...")
   if(txtCardName.value.length == 0)
   {
     reqName.className = "error";
     validFormData = false;
-    print("Invalid data found: Length of name cannot be 0");
+    log("Invalid data found: Length of name cannot be 0");
   }
   else
   {
     reqName.className = "reqField";
-    print("Name OK");
+    log("Name OK");
   }
 
-  print("Form data is: " + (validFormData ? "Valid" : "Invalid"));
+  log("Form data is: " + (validFormData ? "Valid" : "Invalid"));
 
   return validFormData;
 }
 
 function encodeFormData()
 {
-  print("Encoding form data...");
+  log("Encoding form data...");
 
   let cId       = hidPokemonId.value;
   let cAtkName1 = txtAtkName1.value.trim();
@@ -569,9 +570,9 @@ function encodeFormData()
   "atkType2=" + encodeURIComponent(cAtkType2) + "&" +
   "rarity="   + encodeURIComponent(cRarity);
 
-  print(data);
+  log(data);
 
-  print("Endcoding complete");
+  log("Endcoding complete");
 
   return data;
 }
@@ -625,7 +626,7 @@ function switchToUpdateMode()
 // Server communications
 function getCardsFromServer()
 {
-  print("Getting cards from server");
+  log("Getting cards from server");
 
   // Clear all current cards for those coming from server
   arrCards = [];
@@ -645,7 +646,7 @@ function getCardsFromServer()
   (
     function(response)
     {
-      print("Cards recieved");
+      log("Cards recieved");
 
       let tempResponse = response.clone();
       let cards = tempResponse.json();
@@ -657,30 +658,30 @@ function getCardsFromServer()
   (
     function(cards)
     {
-      print("Adding cards to array");
+      log("Adding cards to array");
 
       cards.forEach(
         function(card){
-          print(card.toString());
+          log(card.toString());
 
           arrCards.push(card);
         }
       ); // forEach
 
-      print("Finished adding cards to array")
+      log("Finished adding cards to array")
     }
   )
   .then
   (
     function()
     {
-      print("Creating card objects");
+      log("Creating card objects");
 
       arrCards.forEach
       (
         function(card)
         {
-          print("Current card: " + card.toString());
+          log("Current card: " + card.toString());
 
           let newCardImg = makeCardImg(card);
           let newCardImgContainer = makeCardImgContainer();
@@ -731,7 +732,7 @@ function getCardsFromServer()
 
 function getNamesFromServer()
 {
-  print("Getting names from server");
+  log("Getting names from server");
 
   fetch
   (
@@ -747,13 +748,13 @@ function getNamesFromServer()
   (
     function(response)
     {
-      print("Names recieved");
+      log("Names recieved");
 
       let tempResponse = response.clone();
 
       let names = tempResponse.json();
 
-      print("Names: " + names.toString());
+      log("Names: " + names.toString());
 
       return names;
     }
@@ -762,12 +763,12 @@ function getNamesFromServer()
   (
     function(names)
     {
-      print("Adding names to array")
+      log("Adding names to array")
       names.forEach
       (
         function(name)
         {
-          print(name);
+          log(name);
           arrNames.push(name);
         }
       );
@@ -777,7 +778,7 @@ function getNamesFromServer()
   (
     function()
     {
-      print("Adding names to drop down")
+      log("Adding names to drop down")
       arrNames.forEach
       (
         function(name)
@@ -791,7 +792,7 @@ function getNamesFromServer()
 
 function getRaritiesFromServer()
 {
-  print("Getting rarities from server");
+  log("Getting rarities from server");
 
   fetch
   (
@@ -808,12 +809,12 @@ function getRaritiesFromServer()
   (
     function(response)
     {
-      print("Rarities recieved")
+      log("Rarities recieved")
       let tempResponse = response.clone();
 
       let rarities = tempResponse.json();
 
-      print(rarities);
+      log(rarities);
 
       return rarities;
     }
@@ -847,7 +848,7 @@ function getRaritiesFromServer()
 
 function getTypesFromServer()
 {
-  print("Getting types from server")
+  log("Getting types from server")
 
   fetch
   (
@@ -863,12 +864,12 @@ function getTypesFromServer()
   (
     function(response)
     {
-      print("Types recieved")
+      log("Types recieved")
       let tempResponse = response.clone();
 
       let types = tempResponse.json();
 
-      print(types);
+      log(types);
 
       return types;
     }
@@ -877,7 +878,7 @@ function getTypesFromServer()
   (
     function(types)
     {
-      print("Adding names to array")
+      log("Adding names to array")
       types.forEach(
         function(type){
           arrTypes.push(type);
@@ -889,7 +890,7 @@ function getTypesFromServer()
   (
     function()
     {
-      print("Adding names to drop down")
+      log("Adding names to drop down")
       arrTypes.forEach
       (
         function(type)

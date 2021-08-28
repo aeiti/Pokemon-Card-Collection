@@ -1,3 +1,5 @@
+ <!-- Adam Manning 2021 -->
+ 
 # cards
 
 [pikachu]: https://cdn.bulbagarden.net/upload/thumb/1/1a/SurfingPikachuWizardsPromo28.jpg/200px-SurfingPikachuWizardsPromo28.jpg
