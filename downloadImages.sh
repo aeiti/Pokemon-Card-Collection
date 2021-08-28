@@ -1,5 +1,5 @@
-IFS=""
-num=1
+IFS="" # Input file stream
+num=1 # Counter/Dational Dex number
 outdir="img/"
 
 while IFS="" read name; do

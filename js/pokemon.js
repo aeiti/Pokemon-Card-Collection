@@ -6,24 +6,24 @@ const cTypeFormEncodedData = "application/x-www-form-urlencoded";
 const cTypeJSON = "application/json";
 
 // Color to change the background of card depending on its type
-const bug       = "#A8B820";
-const dark      = "#705848";
-const dragon    = "#7038F8";
-const electric  = "#F8D030";
-const fairy     = "#EE99AC";
-const fighting  = "#C03028";
-const fire      = "#F08030";
-const flying    = "#A890F0";
-const ghost     = "#705898";
-const grass     = "#78C850";
-const ground    = "#E0C068";
-const ice       = "#98D8D8";
-const normal    = "#A8A878";
-const poison    = "#A040A0";
-const psychic   = "#F85888";
-const rock      = "#B8A038";
-const steel     = "#B8B8D0";
-const water     = "#6890F0";
+const BUG       = "#A8B820";
+const DARK      = "#705848";
+const DRAGON    = "#7038F8";
+const ELECTRIC  = "#F8D030";
+const FAIRY     = "#EE99AC";
+const FIGHTING  = "#C03028";
+const FIRE      = "#F08030";
+const FLYING    = "#A890F0";
+const GHOST     = "#705898";
+const GRASS     = "#78C850";
+const GROUND    = "#E0C068";
+const ICE       = "#98D8D8";
+const NORMAL    = "#A8A878";
+const POISON    = "#A040A0";
+const PSYCHIC   = "#F85888";
+const ROCK      = "#B8A038";
+const STEEL     = "#B8B8D0";
+const WATER     = "#6890F0";
 
 // Location of image files
 const imgDir = "img/"
@@ -80,7 +80,7 @@ var btnCancelUpdate = getElem("#btnCancelUpdate");
 //////////////////////////////////////////////////
 
 // For debugging only
-var outputFlag = false;
+var outputFlag = true;
 function print(arg)
 {
   if(outputFlag)
@@ -159,10 +159,14 @@ function btnCancelUpdateOnClick()
 // Only set form buttons
 function setEventHandlers()
 {
+  print("Setting event handlers...");
+
   btnAddCard.onclick      = btnAddCardOnClick;
   btnClearForm.onclick    = btnClearFormOnClick;
   btnUpdateCard.onclick   = btnUpdateCardOnClick;
   btnCancelUpdate.onclick = btnCancelUpdateOnClick;
+
+  print("Finished setting event handlers");
 }
 
 // Creates a <button> element
@@ -180,7 +184,7 @@ function makeButton()
 // Creates a <div> element
 function makeDiv()
 {
-  print("Creating <img>")
+  print("Creating <div>")
 
   let div = document.createElement("div");
 
@@ -223,7 +227,7 @@ function makeCardImg(card)
   img.src = imgDir + id + ".gif";
   img.alt = arrNames[id - 1].name; //Should subtract 1
 
-  print("Creating CardImg");
+  print("Finished creating CardImg");
 
   return img;
 }
@@ -232,7 +236,7 @@ function makeCardImgContainer()
 {
   print("Creating CardImageContainer");
 
-  let imgContainer = makeDiv()
+  let imgContainer = makeDiv();
   imgContainer.className = "cardImgContainer";
 
   print("Finished creating CardImageContainer");
@@ -243,6 +247,7 @@ function makeCardImgContainer()
 function makeCardTextContainer()
 {
   print("Creating CardTextContainer");
+
   let txtContainer = makeDiv();
   txtContainer.className = "cardTextContainer";
 
@@ -254,7 +259,7 @@ function makeCardTextContainer()
 function makeCardEditButton(card){
   print("Creating CardEditButton");
 
-  let editButton = makeButton()
+  let editButton = makeButton();
   editButton.innerHTML = "Edit Details"
   editButton.onclick = function()
   {
@@ -416,25 +421,24 @@ function pickGradient(card)
 
   switch (gradientType)
   {
-    case "bug":       gradientColor = bug;       break;
-    case "bug":       gradientColor = bug;       break;
-    case "dark":      gradientColor = dark;      break;
-    case "dragon":    gradientColor = dragon;    break;
-    case "electric":  gradientColor = electric;  break;
-    case "fairy":     gradientColor = fairy;     break;
-    case "fighting":  gradientColor = fighting;  break;
-    case "fire":      gradientColor = fire;      break;
-    case "flying":    gradientColor = flying;    break;
-    case "ghost":     gradientColor = ghost;     break;
-    case "grass":     gradientColor = grass;     break;
-    case "ground":    gradientColor = ground;    break;
-    case "ice":       gradientColor = ice;       break;
-    case "normal":    gradientColor = normal;    break;
-    case "poison":    gradientColor = poison;    break;
-    case "psychic":   gradientColor = psychic;   break;
-    case "rock":      gradientColor = rock;      break;
-    case "steel":     gradientColor = steel;     break;
-    case "water":     gradientColor = water;     break;
+    case "bug":       gradientColor = BUG;       break;
+    case "dark":      gradientColor = DARK;      break;
+    case "dragon":    gradientColor = DRAGON;    break;
+    case "electric":  gradientColor = ELECTRIC;  break;
+    case "fairy":     gradientColor = FAIRY;     break;
+    case "fighting":  gradientColor = FIGHTING;  break;
+    case "fire":      gradientColor = FIRE;      break;
+    case "flying":    gradientColor = FLYING;    break;
+    case "ghost":     gradientColor = GHOST;     break;
+    case "grass":     gradientColor = GRASS;     break;
+    case "ground":    gradientColor = GROUND;    break;
+    case "ice":       gradientColor = ICE;       break;
+    case "normal":    gradientColor = NORMAL;    break;
+    case "poison":    gradientColor = POISON;    break;
+    case "psychic":   gradientColor = PSYCHIC;   break;
+    case "rock":      gradientColor = ROCK;      break;
+    case "steel":     gradientColor = STEEL;     break;
+    case "water":     gradientColor = WATER;     break;
     default:          gradientColor = "";        break;
   } // switch
 
@@ -508,8 +512,6 @@ function isValidFormData()
     print("HP OK");
   }
 
-
-
   print("Checking name...")
   if(txtCardName.value.length == 0)
   {
@@ -555,7 +557,8 @@ function encodeFormData()
     cAtkType2 = "None";
   }
 
-  let data =  "id="       + encodeURIComponent(cId)       + "&" +
+  let data =
+  "id="       + encodeURIComponent(cId)       + "&" +
   "s_id="     + encodeURIComponent(cSpecies)  + "&" +
   "name="     + encodeURIComponent(cName)     + "&" +
   "t_id="     + encodeURIComponent(cType)     + "&" +
@@ -565,6 +568,7 @@ function encodeFormData()
   "atkName2=" + encodeURIComponent(cAtkName2) + "&" +
   "atkType2=" + encodeURIComponent(cAtkType2) + "&" +
   "rarity="   + encodeURIComponent(cRarity);
+
   print(data);
 
   print("Endcoding complete");
@@ -605,6 +609,8 @@ function switchToAddMode()
   btnClearForm.style.display = "inline";
   btnUpdateCard.style.display = "none";
   btnCancelUpdate.style.display = "none";
+
+  resetForm();
 }
 
 // Hide the update and cancel buttons and show the button to add a card
