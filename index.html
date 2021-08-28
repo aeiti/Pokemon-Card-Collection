@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <title>
+      Poke&#769;mon Card Collection
+    </title>
+    <link rel="stylesheet" href="css/pokemon.css">
+  </head>
+
+  <body>
+    <div class="title">
+      <h1>Poke&#769;mon Card Collection</h1>
+    </div>
+
+    <div class="content">
+      <div class="form">
+        <input type="hidden" id="p_id">
+        <div class="form-field">
+          <span class="form-label">
+            Card Name:
+          </span>
+          <input type="text" id="card_name"> <span class="reqField" id="reqName">Required</span>
+        </div>
+
+        <div class="form-field">
+          <span class="form-label">
+            HP:
+          </span>
+          <input type="text" id="pokemon_hp"> <span class="reqField" id="reqHP">Required</span>
+        </div>
+
+        <br>
+
+        <div class="form-field">
+          <span class="form-label">
+            Species:
+          </span>
+          <select id="pokemon_species">
+          </select>
+        </div>
+
+        <div class="form-field">
+          <span class="form-label">
+            Card Type:
+          </span>
+          <select id="pokemon_type">
+          </select>
+        </div>
+
+        <br>
+
+        <div class="form-field">
+          <span class="form-label">
+            First Attack:
+          </span>
+          <input type="text" id="atkName1">
+        </div>
+
+        <div class="form-field">
+          <span class="form-label">
+            Attack Type:
+          </span>
+          <select id="atkType1">
+          </select>
+        </div>
+
+        <br>
+
+        <div class="form-field">
+          <span class="form-label">
+            Second Attack:
+          </span>
+          <input type="text" id="atkName2">
+        </div>
+
+        <div class="form-field">
+          <span class="form-label">
+            Attack Type:
+          </span>
+          <select id="atkType2">
+          </select>
+        </div>
+
+        <br>
+
+        <div class="form-field">
+          <span class="form-label">
+            Rarity:
+          </span>
+          <select id="rarity">
+          </select>
+        </div>
+        <button id="btnCreateCard">Add to Collection</button>
+        <button id="btnUpdateCard" hidden>Update Card</button>
+        <button id="btnCancelUpdate" hidden>Discard Changes</button>
+        <button id="btnClearForm">Clear Form</button>
+      </div>
+      <!-- END FORM DIV-->
+
+      <div id="cards" class="cards">
+      </div>
+      <!-- END CARDS DIV -->
+    </div>
+    <!-- END CONTENT DIV -->
+
+    <script src="js/pokemon.js"></script>
+  </body>
+</html>

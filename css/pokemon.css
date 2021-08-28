@@ -1,0 +1,132 @@
+
+* {
+  font-family: monospace, sans-serif;
+  font-size: 14pt;
+}
+
+body {
+  /*background-color: #9cddff;*/
+  background: linear-gradient(#a4e5f7, #8ccdff);
+  padding-top: 2%;
+  padding-left: 5%;
+}
+
+button {
+  background: linear-gradient(#3D9Cff, #1f7eff);
+  /*background-color: #1f7eff;*/
+  border: none;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px #040404;
+  color: white;
+  margin: 10px;
+  outline: none;
+}
+
+button:active {
+  background: linear-gradient(#1978ff, #1a68d6);
+  /*background-color: #1a68d6;*/
+}
+
+h1 {
+  color: #ff8800;
+  /*text-shadow: 0 0 3px #707070;*/
+  font-size: 2.5em;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+input[type=text] {
+  min-width: 20%;
+  max-width: 300px;
+  border-radius: 3px;
+  box-shadow: none;
+  outline: none;
+  transition: box-shadow 0.20s ease-in-out;
+}
+input[type=text]:focus {
+  box-shadow: 0 0 5px #6A74F4;
+}
+
+input[type=text], select, .cards{
+  /*background-color: #ededed;*/
+  background: linear-gradient(#FFFFFF, #EDEDED);
+}
+
+select {
+  box-shadow: none;
+  outline: none;
+  transition: box-shadow 0.20s ease-in-out;
+}
+
+select:focus {
+  box-shadow: 0 0 5px #6A74F4;
+}
+
+.cardDiv {
+  /*border: 2px inset black;*/
+  display: flex;
+  /*margin-bottom: 2px;*/
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+}
+
+.cardImg {
+  text-align: center;
+}
+
+.cardImgContainer {
+  text-align: center;
+  width: 160px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.cards {
+  border: 5px ridge #F4F5FE;
+  border-radius: 1px;
+  height: auto;
+  min-height: 0;
+  max-height: 80%;
+  padding-bottom: 0;
+  width: 40%;
+  overflow: scroll;
+}
+
+.content {
+  display: flex;
+  text-align: left;
+}
+
+.form-field {
+  width: 550px;
+  margin-bottom: 5px;
+}
+
+.error {
+  color: #880000;
+  display: inline;
+  visibility: visible;
+}
+
+.form-label {
+  display: inline-block;
+  width: 150px;
+}
+
+.reqField {
+  display: none;
+}
+
+.title {
+  text-align: justify;
+}
+
+.vertical-bar {
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 75%;
+  width: 1px;
+}
