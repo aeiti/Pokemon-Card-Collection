@@ -25,6 +25,17 @@ err404 = err.format(404)
 
 outputMode = "verbose";
 
+# Card keys
+cardSpecID = "s_id"
+cardName = "name"
+cardTypeID = "t_id"
+cardHP = "hp"
+cardAtkName1 = "atkName1"
+cardAtkName2 = "atkName2"
+cardAtkType1 = "atkType1"
+cardAtkType2 = "atkType2"
+cardRarity = "rarity"
+
 class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
     def verbosePrint(self, arg):
         if outputMode == "verbose":
@@ -199,15 +210,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
             self.verbosePrint(parsed_body)
 
             if not ( \
-                "s_id"      in parsed_body or \
-                "name"      in parsed_body or \
-                "t_id"      in parsed_body or \
-                "hp"        in parsed_body or \
-                "atkName1"  in parsed_body or \
-                "atkType1"  in parsed_body or \
-                "atkName2"  in parsed_body or \
-                "atkType2"  in parsed_body or \
-                "rarity"    in parsed_body \
+                cardSpecID      in parsed_body or \
+                cardName      in parsed_body or \
+                cardTypeID      in parsed_body or \
+                cardHP        in parsed_body or \
+                cardAtkName1  in parsed_body or \
+                cardAtkType1  in parsed_body or \
+                cardAtkName2  in parsed_body or \
+                cardAtkType2  in parsed_body or \
+                cardRarity    in parsed_body \
             ):
                 print("Invalid headers in request")
 
@@ -219,15 +230,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
                 db = DBController()
 
                 db.createCard( \
-                    parsed_body["s_id"][0], \
-                    parsed_body["name"][0], \
-                    parsed_body["t_id"][0], \
-                    parsed_body["hp"][0], \
-                    parsed_body["atkName1"][0], \
-                    parsed_body["atkType1"][0], \
-                    parsed_body["atkName2"][0], \
-                    parsed_body["atkType2"][0], \
-                    parsed_body["rarity"][0] \
+                    parsed_body[cardSpecID][0], \
+                    parsed_body[cardName][0], \
+                    parsed_body[cardTypeID][0], \
+                    parsed_body[cardHP][0], \
+                    parsed_body[cardAtkName1][0], \
+                    parsed_body[cardAtkType1][0], \
+                    parsed_body[cardAtkName2][0], \
+                    parsed_body[cardAtkType2][0], \
+                    parsed_body[cardRarity][0] \
                 )
 
                 print("Card created")
@@ -255,15 +266,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
             parsed_body = parse_qs(body)
 
             if not ( \
-                "s_id"      in parsed_body or \
-                "name"      in parsed_body or \
-                "t_id"      in parsed_body or \
-                "hp"        in parsed_body or \
-                "atkName1"  in parsed_body or \
-                "atkType1"  in parsed_body or \
-                "atkName2"  in parsed_body or \
-                "atkType2"  in parsed_body or \
-                "rarity"    in parsed_body \
+                cardSpecID      in parsed_body or \
+                cardName      in parsed_body or \
+                cardTypeID      in parsed_body or \
+                cardHP        in parsed_body or \
+                cardAtkName1  in parsed_body or \
+                cardAtkType1  in parsed_body or \
+                cardAtkName2  in parsed_body or \
+                cardAtkType2  in parsed_body or \
+                cardRarity    in parsed_body \
             ):
                 print("Invalid headers in request")
 
@@ -273,15 +284,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
             else:
                 db.updateCard( \
-                    parsed_body["s_id"][0], \
-                    parsed_body["name"][0], \
-                    parsed_body["t_id"][0], \
-                    parsed_body["hp"][0], \
-                    parsed_body["atkName1"][0], \
-                    parsed_body["atkName2"][0], \
-                    parsed_body["atkType1"][0], \
-                    parsed_body["atkType2"][0], \
-                    parsed_body["rarity"][0], \
+                    parsed_body[cardSpecID][0], \
+                    parsed_body[cardName][0], \
+                    parsed_body[cardTypeID][0], \
+                    parsed_body[cardHP][0], \
+                    parsed_body[cardAtkName1][0], \
+                    parsed_body[cardAtkName2][0], \
+                    parsed_body[cardAtkType1][0], \
+                    parsed_body[cardAtkType2][0], \
+                    parsed_body[cardRarity][0], \
                     parsed_body["id"][0] \
                 )
 
