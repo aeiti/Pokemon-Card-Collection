@@ -116,7 +116,6 @@ function btnClearFormOnClick()
 {
   resetForm();
   log("Form reset");
-
 }
 
 // Event handler - Sends updated card details to server when the update button is clicked
@@ -663,7 +662,8 @@ function getCardsFromServer()
 
       cards.forEach
       (
-        function(card){
+        function(card)
+        {
           log(card.toString());
 
           arrCards.push(card);
@@ -742,7 +742,8 @@ function getNamesFromServer()
     (serverURL + "names"),
     {
       method: "GET",
-      headers: {
+      headers:
+      {
         "Accept": cTypeJSON
       }
     }
@@ -826,7 +827,8 @@ function getRaritiesFromServer()
   (
     function(rarities)
     {
-      rarities.forEach(
+      rarities.forEach
+      (
         function(rarity)
         {
           arrRarities.push(rarity);
@@ -858,7 +860,8 @@ function getTypesFromServer()
     (serverURL + "types"),
     {
       method: "GET",
-      headers: {
+      headers:
+      {
         "Accept": cTypeJSON
       }
     }
@@ -881,9 +884,11 @@ function getTypesFromServer()
   (
     function(types)
     {
-      log("Adding names to array")
-      types.forEach(
-        function(type){
+      log("Adding types to array")
+      types.forEach
+      (
+        function(type)
+        {
           arrTypes.push(type);
         }
       );
@@ -893,7 +898,7 @@ function getTypesFromServer()
   (
     function()
     {
-      log("Adding names to drop down")
+      log("Adding types to drop downs")
       arrTypes.forEach
       (
         function(type)
