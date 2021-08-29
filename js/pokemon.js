@@ -133,7 +133,8 @@ function btnUpdateCardOnClick()
       {
         body: data,
         method: "PUT",
-        headers: {
+        headers:
+        {
           "Content-Type": cTypeFormEncodedData
         }
       }
@@ -660,7 +661,8 @@ function getCardsFromServer()
     {
       log("Adding cards to array");
 
-      cards.forEach(
+      cards.forEach
+      (
         function(card){
           log(card.toString());
 
@@ -668,7 +670,7 @@ function getCardsFromServer()
         }
       ); // forEach
 
-      log("Finished adding cards to array")
+      log("Finished adding cards to array");
     }
   )
   .then
@@ -722,7 +724,8 @@ function getCardsFromServer()
       divCards.scrollTop = divCards.scrollHeight;
     }
   ) // then
-  .catch(
+  .catch
+  (
     function(err)
     {
       console.log(err)

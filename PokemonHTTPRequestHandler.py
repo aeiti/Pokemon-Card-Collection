@@ -36,15 +36,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def requestStarted(self, requestType):
         self.incRequestCount()
-        print("START REQUEST NUMBER {0}".format(numRequests))
+        print(f"START REQUEST NUMBER {numRequests}")
         self.showPath(requestType)
 
     def requestEnded(self):
-        print("END REQUEST NUMBER {0}".format(numRequests))
+        print(f"END REQUEST NUMBER {numRequests}")
         print()
 
     def showPath(self, requestType):
-        print("{0} PATH: {1}".format(requestType, self.path))
+        print(f"{requestType} PATH: {self.path}")
 
     def extractCardIdFromPath(self):
         splitPath = self.path.split('/')
