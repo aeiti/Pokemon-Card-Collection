@@ -423,6 +423,18 @@ function makeAttack2Div(card)
   return attack1Div;
 }
 
+function makeRarityDiv(card)
+{
+  log("Creating RarityDiv");
+
+  let rarityDiv = makeDiv();
+  rarityDiv.innerHTML = "Rarity: " + card["rarity"];
+
+  log("Finished creating Rarity");
+
+  return rarityDiv;
+}
+
 function makeTypeDiv(card)
 {
   log("Creating TypeDiv");
@@ -718,10 +730,11 @@ function getCardsFromServer()
           let newCardDiv = makeCardDiv(card);
           let newNameDiv = makeNameDiv(card);
           let newHPDiv = makeHPDiv(card);
-          let newSpeciesDiv = makeSpeciesDiv(card)
           let newAttack1Div = makeAttack1Div(card);
           let newAttack2Div = makeAttack2Div(card);
+          let newSpeciesDiv = makeSpeciesDiv(card)
           let newTypeDiv = makeTypeDiv(card);
+          let newRarityDiv = makeRarityDiv(card);
           let gradientColor = pickGradient(card);
 
           setGradient(newCardDiv, "#FFFFFF", gradientColor);
@@ -731,9 +744,10 @@ function getCardsFromServer()
           newCardTextContainer.appendChild(newNameDiv);
           newCardTextContainer.appendChild(newHPDiv);
           newCardTextContainer.appendChild(newSpeciesDiv);
-          newCardTextContainer.appendChild(newTypeDiv);
           newCardTextContainer.appendChild(newAttack1Div);
           newCardTextContainer.appendChild(newAttack2Div);
+          newCardTextContainer.appendChild(newTypeDiv);
+          newCardTextContainer.appendChild(newRarityDiv);
           newCardTextContainer.appendChild(newCardEditButton);
           newCardTextContainer.appendChild(newCardDeleteButton);
 
