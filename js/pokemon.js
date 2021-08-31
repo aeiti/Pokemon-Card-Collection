@@ -6,24 +6,24 @@ const cTypeFormEncodedData = "application/x-www-form-urlencoded";
 const cTypeJSON = "application/json";
 
 // Color to change the background of card depending on its type
-const BUG       = "#A8B820";
-const DARK      = "#705848";
-const DRAGON    = "#7038F8";
-const ELECTRIC  = "#F8D030";
-const FAIRY     = "#EE99AC";
-const FIGHTING  = "#C03028";
-const FIRE      = "#F08030";
-const FLYING    = "#A890F0";
-const GHOST     = "#705898";
-const GRASS     = "#78C850";
-const GROUND    = "#E0C068";
-const ICE       = "#98D8D8";
-const NORMAL    = "#A8A878";
-const POISON    = "#A040A0";
-const PSYCHIC   = "#F85888";
-const ROCK      = "#B8A038";
-const STEEL     = "#B8B8D0";
-const WATER     = "#6890F0";
+const COLOR_BUG       = "#A8B820";
+const COLOR_DARK      = "#705848";
+const COLOR_DRAGON    = "#7038F8";
+const COLOR_ELECTRIC  = "#F8D030";
+const COLOR_FAIRY     = "#EE99AC";
+const COLOR_FIGHTING  = "#C03028";
+const COLOR_FIRE      = "#F08030";
+const COLOR_FLYING    = "#A890F0";
+const COLOR_GHOST     = "#705898";
+const COLOR_GRASS     = "#78C850";
+const COLOR_GROUND    = "#E0C068";
+const COLOR_ICE       = "#98D8D8";
+const COLOR_NORMAL    = "#A8A878";
+const COLOR_POISON    = "#A040A0";
+const COLOR_PSYCHIC   = "#F85888";
+const COLOR_ROCK      = "#B8A038";
+const COLOR_STEEL     = "#B8B8D0";
+const COLOR_WATER     = "#6890F0";
 
 // Location of image files
 const imgDir = "img/"
@@ -399,6 +399,30 @@ function makeSpeciesDiv(card)
   return speciesDiv;
 }
 
+function makeAttack1Div(card)
+{
+  log("Creating Attack1Div");
+
+  let attack1Div = makeDiv();
+  attack1Div.innerHTML = "Atttack 1: " + card["atkName1"];
+
+  log("Finished creating Attack1Div");
+
+  return attack1Div;
+}
+
+function makeAttack2Div(card)
+{
+  log("Creating Attack2Div");
+
+  let attack1Div = makeDiv();
+  attack1Div.innerHTML = "Atttack 2: " + card["atkName2"];
+
+  log("Finished creating Attack2Div");
+
+  return attack1Div;
+}
+
 function makeTypeDiv(card)
 {
   log("Creating TypeDiv");
@@ -422,24 +446,24 @@ function pickGradient(card)
 
   switch (gradientType)
   {
-    case "bug":       gradientColor = BUG;       break;
-    case "dark":      gradientColor = DARK;      break;
-    case "dragon":    gradientColor = DRAGON;    break;
-    case "electric":  gradientColor = ELECTRIC;  break;
-    case "fairy":     gradientColor = FAIRY;     break;
-    case "fighting":  gradientColor = FIGHTING;  break;
-    case "fire":      gradientColor = FIRE;      break;
-    case "flying":    gradientColor = FLYING;    break;
-    case "ghost":     gradientColor = GHOST;     break;
-    case "grass":     gradientColor = GRASS;     break;
-    case "ground":    gradientColor = GROUND;    break;
-    case "ice":       gradientColor = ICE;       break;
-    case "normal":    gradientColor = NORMAL;    break;
-    case "poison":    gradientColor = POISON;    break;
-    case "psychic":   gradientColor = PSYCHIC;   break;
-    case "rock":      gradientColor = ROCK;      break;
-    case "steel":     gradientColor = STEEL;     break;
-    case "water":     gradientColor = WATER;     break;
+    case "bug":       gradientColor = COLOR_BUG;       break;
+    case "dark":      gradientColor = COLOR_DARK;      break;
+    case "dragon":    gradientColor = COLOR_DRAGON;    break;
+    case "electric":  gradientColor = COLOR_ELECTRIC;  break;
+    case "fairy":     gradientColor = COLOR_FAIRY;     break;
+    case "fighting":  gradientColor = COLOR_FIGHTING;  break;
+    case "fire":      gradientColor = COLOR_FIRE;      break;
+    case "flying":    gradientColor = COLOR_FLYING;    break;
+    case "ghost":     gradientColor = COLOR_GHOST;     break;
+    case "grass":     gradientColor = COLOR_GRASS;     break;
+    case "ground":    gradientColor = COLOR_GROUND;    break;
+    case "ice":       gradientColor = COLOR_ICE;       break;
+    case "normal":    gradientColor = COLOR_NORMAL;    break;
+    case "poison":    gradientColor = COLOR_POISON;    break;
+    case "psychic":   gradientColor = COLOR_PSYCHIC;   break;
+    case "rock":      gradientColor = COLOR_ROCK;      break;
+    case "steel":     gradientColor = COLOR_STEEL;     break;
+    case "water":     gradientColor = COLOR_WATER;     break;
     default:          gradientColor = "";        break;
   } // switch
 
@@ -637,7 +661,8 @@ function getCardsFromServer()
     (serverURL + "cards"),
     {
       method: "GET",
-      headers: {
+      headers:
+      {
         "Accept": cTypeJSON
       } // Headers
     }
@@ -694,6 +719,8 @@ function getCardsFromServer()
           let newNameDiv = makeNameDiv(card);
           let newHPDiv = makeHPDiv(card);
           let newSpeciesDiv = makeSpeciesDiv(card)
+          let newAttack1Div = makeAttack1Div(card);
+          let newAttack2Div = makeAttack2Div(card);
           let newTypeDiv = makeTypeDiv(card);
           let gradientColor = pickGradient(card);
 
@@ -705,7 +732,8 @@ function getCardsFromServer()
           newCardTextContainer.appendChild(newHPDiv);
           newCardTextContainer.appendChild(newSpeciesDiv);
           newCardTextContainer.appendChild(newTypeDiv);
-
+          newCardTextContainer.appendChild(newAttack1Div);
+          newCardTextContainer.appendChild(newAttack2Div);
           newCardTextContainer.appendChild(newCardEditButton);
           newCardTextContainer.appendChild(newCardDeleteButton);
 
@@ -827,6 +855,8 @@ function getRaritiesFromServer()
   (
     function(rarities)
     {
+      log("Adding rarities to array");
+
       rarities.forEach
       (
         function(rarity)
@@ -840,6 +870,8 @@ function getRaritiesFromServer()
   (
     function()
     {
+      log("Adding rarities to drop down");
+
       arrRarities.forEach
       (
         function(rarity)
