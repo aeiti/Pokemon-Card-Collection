@@ -34,16 +34,16 @@ class DBController:
 
         return False
 
-    def createCard(self, s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity):
-        self.cursor.execute(queries.createCard, (s_id, name, t_id, hp, atkName1, atkType1, atkName2, atkType2, rarity))
+    def createCard(self, s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity):
+        self.cursor.execute(queries.createCard, (s_id, name, type, hp, atkName1, atkType1, atkName2, atkType2, rarity))
         self.connection.commit()
 
     def deleteCard(self, c_id):
         self.cursor.execute(queries.deleteCard, (c_id,))
         self.connection.commit()
 
-    def updateCard(self, s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid):
-        self.cursor.execute(queries.updateCard, (s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid))
+    def updateCard(self, s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid):
+        self.cursor.execute(queries.updateCard, (s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid))
         self.connection.commit()
 
     def getCard(self, c_id):
@@ -76,8 +76,8 @@ class DBController:
         rows = self.cursor.fetchall()
         return rows
 
-    def getType(self, t_id):
-        self.cursor.execute(queries.getType, (t_id,))
+    def getType(self, type):
+        self.cursor.execute(queries.getType, (type,))
         rows = self.cursor.fetchall()
         return rows
 

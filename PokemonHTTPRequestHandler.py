@@ -26,7 +26,7 @@ outputMode = "verbose";
 # Card keys
 cardSpecID = "s_id"
 cardName = "name"
-cardTypeID = "t_id"
+cardTypeID = "type"
 cardHP = "hp"
 cardAtkName1 = "atkName1"
 cardAtkName2 = "atkName2"

@@ -2,8 +2,28 @@
 
 const serverURL = "http://localhost:8080/";
 
+// Content types
 const cTypeFormEncodedData = "application/x-www-form-urlencoded";
 const cTypeJSON = "application/json";
+
+// REST Methods
+const methodPOST = "POST";
+const methodGET = "GET";
+const methodPUT = "PUT";
+const methodPATCH = "PATCH";
+const methodDELETE = "DELETE";
+
+// Card keys
+const cardIDStr        = "id";
+const cardSpecIDStr    = "s_id";
+const cardNameStr      = "name";
+const cardTypeIDStr    = "type";
+const cardHPStr        = "hp";
+const cardAtkName1Str  = "atkName1";
+const cardAtkName2Str  = "atkName2";
+const cardAtkType1Str  = "atkType1";
+const cardAtkType2Str  = "atkType2";
+const cardRarityStr    = "rarity";
 
 // Color to change the background of card depending on its type
 const COLOR_BUG       = "#A8B820";
@@ -99,8 +119,9 @@ function btnAddCardOnClick()
       (serverURL + "cards"),
       {
         body: cardBody,
-        method: "POST",
-        headers: {
+        method: methodPOST,
+        headers:
+        {
           "Content-Type": cTypeFormEncodedData
         }
       }
@@ -131,7 +152,7 @@ function btnUpdateCardOnClick()
       (serverURL + "cards/" + "card" + hidPokemonId.value),
       {
         body: data,
-        method: "PUT",
+        method: methodPUT,
         headers:
         {
           "Content-Type": cTypeFormEncodedData
@@ -222,7 +243,7 @@ function makeCardImg(card)
   let img = makeImg();
   img.className = "cardImg";
 
-  let id = card["s_id"];
+  let id = card[cardSpecIDStr];
   log("Species: " + id);
 
   img.src = imgDir + id + ".gif";
@@ -264,36 +285,36 @@ function makeCardEditButton(card){
   editButton.innerHTML = "Edit Details"
   editButton.onclick = function()
   {
-    log("Editing card with id(" + card["id"] + ")");
+    log("Editing card with id(" + card[cardIDStr] + ")");
 
-    txtCardName.value = card["name"];
-    txtHP.value = card["hp"]
+    txtCardName.value = card[cardNameStr];
+    txtHP.value = card[cardHPStr];
 
-    if(card["atkName1"] == "None")
+    if(card[cardAtkName1Str] == "None")
     {
-      txtAtkName1.value = ""
+      txtAtkName1.value = "";
     }
     else
     {
-      txtAtkName1.value = card["atkName1"];
+      txtAtkName1.value = card[cardAtkName2Str];
     }
 
-    if(card["atkName2"] == "None")
+    if(card[cardAtkName2Str] == "None")
     {
-      txtAtkName2.value = ""
+      txtAtkName2.value = "";
     }
     else
     {
-      txtAtkName2.value = card["atkName2"]
+      txtAtkName2.value = card[cardAtkName2Str];
     }
 
-    selSpecies.selectedIndex  = card["s_id"] - 1;
-    selCardType.selectedIndex = card["type"];
-    selAtkType1.selectedIndex = card["atkType1"];
-    selAtkType2.selectedIndex = card["atkType2"];
-    selRarity.selectedIndex   = card["rarity"];
+    selSpecies.selectedIndex  = card[cardSpecIDStr] - 1;
+    selCardType.selectedIndex = card[cardTypeIDStr];
+    selAtkType1.selectedIndex = card[cardAtkType1Str];
+    selAtkType2.selectedIndex = card[cardAtkType2Str];
+    selRarity.selectedIndex   = card[cardRarityStr];
 
-    hidPokemonId.value = card["id"];
+    hidPokemonId.value = card[cardIDStr];
 
     setLastCard();
     switchToUpdateMode();
@@ -311,7 +332,7 @@ function makeCardDeleteButton(card)
   deleteButton.innerHTML = "Delete Card";
   deleteButton.onclick = function()
   {
-    let willDelete = confirm("Are you sure you want to delete " + card["name"] + "?");
+    let willDelete = confirm("Are you sure you want to delete " + card[cardNameStr] + "?");
 
     if(willDelete)
     {
@@ -319,9 +340,9 @@ function makeCardDeleteButton(card)
 
       fetch
       (
-        (serverURL + "cards/" + "card" +  card["id"]),
+        (serverURL + "cards/" + "card" +  card[cardIDStr]),
         {
-          method: "DELETE"
+          method: methodDELETE
         }
       )
       .then
@@ -356,7 +377,7 @@ function makeCardDiv(card)
 
   let cardDiv = makeDiv();
   cardDiv.className = "cardDiv";
-  cardDiv.id = "card" + arrNames[card["s_id"]];
+  cardDiv.id = "card" + arrNames[card[cardSpecIDStr]];
 
   log("Finished creating CardDiv");
 
@@ -368,7 +389,7 @@ function makeNameDiv(card)
   log("Creating NameDiv");
 
   let nameDiv = makeDiv();
-  nameDiv.innerHTML = "Name: " + card["name"];
+  nameDiv.innerHTML = "Name: " + card[cardNameStr];
 
   log("Finished creating NameDiv");
 
@@ -380,7 +401,7 @@ function makeHPDiv(card)
   log("Creating HPDiv");
 
   let hpDiv = makeDiv();
-  hpDiv.innerHTML = "HP: " + card["hp"];
+  hpDiv.innerHTML = "HP: " + card[cardHPStr];
 
   log("Finished creating HPDiv");
 
@@ -392,7 +413,8 @@ function makeSpeciesDiv(card)
   log("Creating SpeciesDiv");
 
   let speciesDiv = makeDiv();
-  speciesDiv.innerHTML = "Species: " + arrNames[card["s_id"] - 1].name;
+  speciesDiv.innerHTML = "Species: " + arrNames[card[cardSpecIDStr] - 1].name;
+
 
   log("Finished creating SpeciesDiv");
 
@@ -404,7 +426,7 @@ function makeAttack1Div(card)
   log("Creating Attack1Div");
 
   let attack1Div = makeDiv();
-  attack1Div.innerHTML = "Atttack 1: " + card["atkName1"];
+  attack1Div.innerHTML = "Atttack 1: " + card[cardAtkName1Str];
 
   log("Finished creating Attack1Div");
 
@@ -416,7 +438,7 @@ function makeAttack2Div(card)
   log("Creating Attack2Div");
 
   let attack1Div = makeDiv();
-  attack1Div.innerHTML = "Atttack 2: " + card["atkName2"];
+  attack1Div.innerHTML = "Atttack 2: " + card[cardAtkName2Str];
 
   log("Finished creating Attack2Div");
 
@@ -428,7 +450,7 @@ function makeRarityDiv(card)
   log("Creating RarityDiv");
 
   let rarityDiv = makeDiv();
-  rarityDiv.innerHTML = "Rarity: " + arrRarities[card["rarity"]]["rarity"];
+  rarityDiv.innerHTML = "Rarity: " + arrRarities[card[cardRarityStr]][cardRarityStr];
 
   log("Finished creating Rarity");
 
@@ -440,7 +462,7 @@ function makeTypeDiv(card)
   log("Creating TypeDiv");
 
   let typeDiv = makeDiv();
-  typeDiv.innerHTML = "Type: " + arrTypes[card["type"]].type;
+  typeDiv.innerHTML = "Type: " + arrTypes[card[cardTypeIDStr]].type;
 
   log("Finished creating TypeDiv");
 
@@ -452,7 +474,7 @@ function pickGradient(card)
   log("Chosing gradient...");
 
   let gradientColor = "";
-  let gradientType = arrTypes[card["type"]].type.toLowerCase();
+  let gradientType = arrTypes[card[cardTypeIDStr]].type.toLowerCase();
 
   log(gradientType);
 
@@ -476,7 +498,7 @@ function pickGradient(card)
     case "rock":      gradientColor = COLOR_ROCK;      break;
     case "steel":     gradientColor = COLOR_STEEL;     break;
     case "water":     gradientColor = COLOR_WATER;     break;
-    default:          gradientColor = "";        break;
+    default:          gradientColor = "#000000";              break;
   } // switch
 
   log("Gradient chosen: " + gradientColor)
@@ -571,40 +593,40 @@ function encodeFormData()
 {
   log("Encoding form data...");
 
-  let cId       = hidPokemonId.value;
-  let cAtkName1 = txtAtkName1.value.trim();
-  let cAtkName2 = txtAtkName2.value.trim();
-  let cHP       = txtHP.value.trim();
-  let cName     = txtCardName.value.trim();
+  let tempId       = hidPokemonId.value;
+  let tempAtkName1 = txtAtkName1.value.trim();
+  let tempAtkName2 = txtAtkName2.value.trim();
+  let tempHP       = txtHP.value.trim();
+  let tempName     = txtCardName.value.trim();
 
-  let cAtkType1 = selAtkType1.selectedIndex;
-  let cAtkType2 = selAtkType2.selectedIndex;
-  let cRarity   = selRarity.selectedIndex;
-  let cSpecies  = selSpecies.selectedIndex + 1;
-  let cType     = selCardType.selectedIndex
+  let tempAtkType1 = selAtkType1.selectedIndex;
+  let tempAtkType2 = selAtkType2.selectedIndex;
+  let tempRarity   = selRarity.selectedIndex;
+  let tempSpecies  = selSpecies.selectedIndex + 1;
+  let tempType     = selCardType.selectedIndex
 
-  if(cAtkName1 == "")
+  if(tempAtkName1 == "")
   {
-    cAtkName1 = "None";
-    cAtkType1 = "None";
+    tempAtkName1 = "None";
+    tempAtkType1 = "None";
   }
-  if(cAtkName2 == "")
+  if(tempAtkName2 == "")
   {
-    cAtkName2 = "None";
-    cAtkType2 = "None";
+    tempAtkName2 = "None";
+    tempAtkType2 = "None";
   }
 
   let data =
-  "id="       + encodeURIComponent(cId)       + "&" +
-  "s_id="     + encodeURIComponent(cSpecies)  + "&" +
-  "name="     + encodeURIComponent(cName)     + "&" +
-  "t_id="     + encodeURIComponent(cType)     + "&" +
-  "hp="       + encodeURIComponent(cHP)       + "&" +
-  "atkName1=" + encodeURIComponent(cAtkName1) + "&" +
-  "atkType1=" + encodeURIComponent(cAtkType1) + "&" +
-  "atkName2=" + encodeURIComponent(cAtkName2) + "&" +
-  "atkType2=" + encodeURIComponent(cAtkType2) + "&" +
-  "rarity="   + encodeURIComponent(cRarity);
+  cardIDStr       + "=" + encodeURIComponent(tempId)       + "&" +
+  cardSpecIDStr   + "=" + encodeURIComponent(tempSpecies)  + "&" +
+  cardNameStr     + "=" + encodeURIComponent(tempName)     + "&" +
+  cardTypeIDStr   + "=" + encodeURIComponent(tempType)     + "&" +
+  cardHPStr       + "=" + encodeURIComponent(tempHP)       + "&" +
+  cardAtkName1Str + "=" + encodeURIComponent(tempAtkName1) + "&" +
+  cardAtkType1Str + "=" + encodeURIComponent(tempAtkType1) + "&" +
+  cardAtkName2Str + "=" + encodeURIComponent(tempAtkName2) + "&" +
+  cardAtkType2Str + "=" + encodeURIComponent(tempAtkType2) + "&" +
+  cardRarityStr   + "="  + encodeURIComponent(tempRarity);
 
   log(data);
 
@@ -672,7 +694,7 @@ function getCardsFromServer()
   (
     (serverURL + "cards"),
     {
-      method: "GET",
+      method: methodGET,
       headers:
       {
         "Accept": cTypeJSON
@@ -783,7 +805,7 @@ function getNamesFromServer()
   (
     (serverURL + "names"),
     {
-      method: "GET",
+      method: methodGET,
       headers:
       {
         "Accept": cTypeJSON
@@ -844,7 +866,7 @@ function getRaritiesFromServer()
   (
     (serverURL + "rarities"),
     {
-      method: "GET",
+      method: methodGET,
       headers:
       {
         "Accept": cTypeJSON
@@ -905,7 +927,7 @@ function getTypesFromServer()
   (
     (serverURL + "types"),
     {
-      method: "GET",
+      method: methodGET,
       headers:
       {
         "Accept": cTypeJSON
