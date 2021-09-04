@@ -428,7 +428,7 @@ function makeRarityDiv(card)
   log("Creating RarityDiv");
 
   let rarityDiv = makeDiv();
-  rarityDiv.innerHTML = "Rarity: " + card["rarity"];
+  rarityDiv.innerHTML = "Rarity: " + arrRarities[card["rarity"]]["rarity"];
 
   log("Finished creating Rarity");
 

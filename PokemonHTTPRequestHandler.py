@@ -16,8 +16,6 @@ header_CORS = "Access-Control-Allow-Origin"
 content_TypeJSON = "application/json"
 content_TypeHTML = "text/html"
 
-html = "text/html"
-#json = "application/json"
 utf8 = "utf-8"
 
 err = "err/{0}.html"
