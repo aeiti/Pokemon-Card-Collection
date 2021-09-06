@@ -1,7 +1,11 @@
  <!-- Adam Manning 2021 -->
- 
+ <h6>
+  *I began this project as an assignment for college and is intended to demonstrate the use of the REST API.
+ </h6>
+
 # cards
 
+<!--
 [pikachu]: https://cdn.bulbagarden.net/upload/thumb/1/1a/SurfingPikachuWizardsPromo28.jpg/200px-SurfingPikachuWizardsPromo28.jpg
 
 [venusaur]: https://cdn.bulbagarden.net/upload/thumb/d/d9/VenusaurWizardsPromo13.jpg/180px-VenusaurWizardsPromo13.jpg
@@ -9,12 +13,12 @@
 [charizard]: https://cdn.bulbagarden.net/upload/thumb/4/4e/CharizardBaseSet4.jpg/200px-CharizardBaseSet4.jpg
 
 [blastoise]: https://cdn.bulbagarden.net/upload/thumb/a/a5/BlastoiseBaseSet2.jpg/180px-BlastoiseBaseSet2.jpg
+-->
 
 <!-- ![Surfing Pikachu][pikachu] ![Venusaur][venusaur] ![Charizard][charizard] ![Blastoise][blastoise] -->
 <!--
 <img src="https://cdn.bulbagarden.net/upload/thumb/1/1a/SurfingPikachuWizardsPromo28.jpg/200px-SurfingPikachuWizardsPromo28.jpg" height="175"><img src="https://cdn.bulbagarden.net/upload/thumb/d/d9/VenusaurWizardsPromo13.jpg/180px-VenusaurWizardsPromo13.jpg" height="175px" alt="Venusaur"><img src="https://cdn.bulbagarden.net/upload/thumb/4/4e/CharizardBaseSet4.jpg/200px-CharizardBaseSet4.jpg"  height="175px" alt="Charizard"><img src="https://cdn.bulbagarden.net/upload/thumb/a/a5/BlastoiseBaseSet2.jpg/180px-BlastoiseBaseSet2.jpg"  height="175px" alt="Blastoise">
 -->
-<br>
 
 ## Attributes
 * `id`: The card's unique id in the Database
@@ -27,8 +31,6 @@
 * `atkType1`: The type of the card's first attack
 * `atkType2`: The type of the card's first attack
 * `rarity`: Describes how rare the card is
-
-<br>
 
 ## Database Schema
 ```sql
@@ -47,7 +49,6 @@ CREATE TABLE names
 CREATE TABLE types
   (id INTEGER PRIMARY KEY, type VARCHAR(255));
 ```
-<br>
 
 ## REST Endpoints
 
