@@ -7,11 +7,11 @@ const cTypeFormEncodedData = "application/x-www-form-urlencoded";
 const cTypeJSON = "application/json";
 
 // REST Methods
-const methodPOST = "POST";
-const methodGET = "GET";
-const methodPUT = "PUT";
-const methodPATCH = "PATCH";
 const methodDELETE = "DELETE";
+const methodGET = "GET";
+const methodPATCH = "PATCH";
+const methodPOST = "POST";
+const methodPUT = "PUT";
 
 // Card keys
 const cardIDStr        = "id";
@@ -47,6 +47,9 @@ const COLOR_WATER     = "#6890F0";
 
 // Location of image files
 const imgDir = "img/"
+
+// Form State - Create mode orr update mode
+var isEditing = false; // Start in create mode
 
 // Divs
 var divCards = getElem("#cards");
@@ -108,7 +111,7 @@ function log(arg)
 }
 
 // Event handler - Handles adding a card to the database
-function btnAddCardOnClick()
+function btnAddCardOnClick(evnt)
 {
   if(isValidFormData())
   {
@@ -133,14 +136,14 @@ function btnAddCardOnClick()
 } // End btnAddCardOnClick()
 
 // Event handler - clears the form when the "Clear Form" button is clicked
-function btnClearFormOnClick()
+function btnClearFormOnClick(evnt)
 {
   resetForm();
   log("Form reset");
 }
 
 // Event handler - Sends updated card details to server when the update button is clicked
-function btnUpdateCardOnClick()
+function btnUpdateCardOnClick(evnt)
 {
   if(isValidFormData()){
     log("Form data is valid");
@@ -172,21 +175,54 @@ function btnUpdateCardOnClick()
 } // End btnUpdateCardOnClick()
 
 // Discards all changes and reload the most recent card
-function btnCancelUpdateOnClick()
+function btnCancelUpdateOnClick(evnt)
 {
   getLastCard();
   switchToAddMode();
 } // End btnCancelEditOnClick
+
+
+function inputOnKeyDown(evnt)
+{
+  if(evnt && evnt.keyCode == 13)
+  {
+    if(!isEditing)
+    {
+      btnAddCardOnClick();
+    }
+    else
+    {
+      btnUpdateCardOnClick();
+    }
+  }
+}
 
 // Only set form buttons
 function setEventHandlers()
 {
   log("Setting event handlers...");
 
+  // Add onclick handlers to buttons
+  log("Setting buttons' onclicks");
   btnAddCard.onclick      = btnAddCardOnClick;
   btnClearForm.onclick    = btnClearFormOnClick;
   btnUpdateCard.onclick   = btnUpdateCardOnClick;
   btnCancelUpdate.onclick = btnCancelUpdateOnClick;
+
+  // Add onkeydown handlers to text inputs
+  log("Setting text inputs' onkeydowns");
+  txtCardName.onkeydown = inputOnKeyDown;
+  txtAtkName1.onkeydown = inputOnKeyDown;
+  txtAtkName2.onkeydown = inputOnKeyDown;
+  txtHP.onkeydown = inputOnKeyDown;
+
+  // Add onkeydown handlers to select inputs
+  log("Setting select inputs' onkeydowns");
+  selAtkType1.onkeydown = inputOnKeyDown;
+  selAtkType2.onkeydown = inputOnKeyDown;
+  selCardType.onkeydown = inputOnKeyDown;
+  selRarity.onkeydown = inputOnKeyDown;
+  selSpecies.onkeydown = inputOnKeyDown;
 
   log("Finished setting event handlers");
 }
@@ -534,6 +570,8 @@ function resetForm()
 {
   log("Resetting form...");
 
+  isEditing = false;
+
   txtCardName.value = "";
   txtAtkName1.value = "";
   txtAtkName2.value = "";
@@ -626,7 +664,7 @@ function encodeFormData()
   cardAtkType1Str + "=" + encodeURIComponent(tempAtkType1) + "&" +
   cardAtkName2Str + "=" + encodeURIComponent(tempAtkName2) + "&" +
   cardAtkType2Str + "=" + encodeURIComponent(tempAtkType2) + "&" +
-  cardRarityStr   + "="  + encodeURIComponent(tempRarity);
+  cardRarityStr   + "=" + encodeURIComponent(tempRarity);
 
   log(data);
 
@@ -669,12 +707,15 @@ function switchToAddMode()
   btnUpdateCard.style.display = "none";
   btnCancelUpdate.style.display = "none";
 
+  // isEditing is modified in resetForm()
   resetForm();
 }
 
 // Hide the update and cancel buttons and show the button to add a card
 function switchToUpdateMode()
 {
+  isEditing = true;
+
   btnAddCard.style.display = "none";
   btnClearForm.style.display = "none";
   btnUpdateCard.style.display = "inline";
