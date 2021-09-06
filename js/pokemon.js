@@ -49,8 +49,15 @@ const COLOR_ROCK = "#B8A038";
 const COLOR_STEEL = "#B8B8D0";
 const COLOR_WATER = "#6890F0";
 
+// Other colors
+const COLOR_BLACK = "#000000";
+const COLOR_BLUE = "#0000FF";
+const COLOR_GREEN = "#00FF00";
+const COLOR_RED = "#FF0000";
+const COLOR_WHITE = "#FFFFFF";
+
 // Location of image files
-const imgDir = "img/"
+const imgDir = "img/";
 
 // Form State - Create mode orr update mode
 var isEditing = false; // Start in create mode
@@ -492,8 +499,17 @@ function makeTypeDiv(card)
 {
   log("Creating TypeDiv");
 
+  let fillColor = pickGradient(card);
+  let strokeColor = COLOR_BLACK;
+  let strokeWidth = 1;
+
   let typeDiv = makeDiv();
   typeDiv.innerHTML = "Type: " + arrTypes[card[cardTypeIDStr]].type;
+  // Not sure if this is worth the trouble
+  // typeDiv.style =
+  //   "-webkit-text-fill-color: " + fillColor + ";" +
+  //   "-webkit-text-stroke-width: " + String(strokeWidth) + ";" +
+  //   "-webkit-text-stroke-color: " + strokeColor + ";";
 
   log("Finished creating TypeDiv");
 
@@ -565,7 +581,7 @@ function pickGradient(card)
       gradientColor = COLOR_WATER;
       break;
     default:
-      gradientColor = "#000000";
+      gradientColor = COLOR_BLACK;
       break;
   } // switch
 
@@ -696,7 +712,7 @@ function encodeFormData()
     cardAtkType2Str + "=" + encodeURIComponent(tempAtkType2) + "&" +
     cardRarityStr + "=" + encodeURIComponent(tempRarity);
 
-  log(data);
+  log(data); // Keep for debugging
 
   log("Endcoding complete");
 
@@ -762,15 +778,15 @@ function getCardsFromServer()
   divCards.innerHTML = "";
 
   fetch(
-      (serverURL + "cards"),
+    (serverURL + "cards"),
+    {
+      method: methodGET,
+      headers:
       {
-        method: methodGET,
-        headers:
-        {
-          "Accept": cTypeJSON
-        } // Headers
-      }
-    ) // End fetch
+        "Accept": cTypeJSON
+      } // Headers
+    }
+  ) // End fetch
   .then(
     function(response)
     {
@@ -807,8 +823,6 @@ function getCardsFromServer()
       arrCards.forEach(
         function(card)
         {
-          log("Current card: " + card.toString());
-
           // Create all the elements of the card
           let newCardImg = makeCardImg(card);
           let newCardImgContainer = makeCardImgContainer();
@@ -868,15 +882,15 @@ function getNamesFromServer()
   log("Getting names from server");
 
   fetch(
-      (serverURL + "names"),
+    (serverURL + "names"),
+    {
+      method: methodGET,
+      headers:
       {
-        method: methodGET,
-        headers:
-        {
-          "Accept": cTypeJSON
-        }
+        "Accept": cTypeJSON
       }
-    ) // End fetch
+    }
+  ) // End fetch
   .then(
     function(response)
     {
@@ -884,8 +898,6 @@ function getNamesFromServer()
 
       let tempResponse = response.clone();
       let names = tempResponse.json();
-
-      log("Names: " + names.toString());
 
       return names;
     }
@@ -922,15 +934,15 @@ function getRaritiesFromServer()
   log("Getting rarities from server");
 
   fetch(
-      (serverURL + "rarities"),
+    (serverURL + "rarities"),
+    {
+      method: methodGET,
+      headers:
       {
-        method: methodGET,
-        headers:
-        {
-          "Accept": cTypeJSON
-        }
+        "Accept": cTypeJSON
       }
-    ) // End fetch
+    }
+  ) // End fetch
   .then(
     function(response)
     {
@@ -969,7 +981,7 @@ function getRaritiesFromServer()
         }
       ); // End forEach
     }
-  ) // End then
+  ); // End then
 }
 
 function getTypesFromServer()
@@ -977,24 +989,21 @@ function getTypesFromServer()
   log("Getting types from server")
 
   fetch(
-      (serverURL + "types"),
+    (serverURL + "types"),
+    {
+      method: methodGET,
+      headers:
       {
-        method: methodGET,
-        headers:
-        {
-          "Accept": cTypeJSON
-        }
+        "Accept": cTypeJSON
       }
-    ) // End fetch
+    }
+  ) // End fetch
   .then(
     function(response)
     {
       log("Types recieved")
       let tempResponse = response.clone();
-
       let types = tempResponse.json();
-
-      log(types);
 
       return types;
     }
@@ -1008,7 +1017,7 @@ function getTypesFromServer()
         {
           arrTypes.push(type);
         }
-      );
+      ); // End forEach
     }
   ) // End then
   .then(
@@ -1031,7 +1040,7 @@ function getTypesFromServer()
 // End function definitions //
 //**************************//
 
-// Begin script execution
+// Begin main script execution
 
 getNamesFromServer();
 getTypesFromServer();

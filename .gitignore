@@ -1,4 +1,6 @@
 __pycache__/
-.DS_Store
+
 db/pokemon.db
+
+.DS_Store
 *.pyc
