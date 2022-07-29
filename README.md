@@ -3,7 +3,7 @@
   *I began this project as an assignment for college and it is intended to demonstrate the use of the REST API.
  </h6>
 
-# cards
+# Pokémon Card Collection
 
 <!--
 [pikachu]: https://cdn.bulbagarden.net/upload/thumb/1/1a/SurfingPikachuWizardsPromo28.jpg/200px-SurfingPikachuWizardsPromo28.jpg
@@ -21,16 +21,19 @@
 -->
 
 # Table of Contents
-1. [Attributes](#attributes)
-2. [Database Schema](#database-schema)
-3. [REST Endpoints](#rest-endpoints)
+1. [Table of Contents](#table-of-contents)
+1. [cards](#cards)
+    1. [Attributes](#attributes)
+1. [Database Schema](#database-schema)
+1. [REST Endpoints](#rest-endpoints)
     1. [List](#list)
-    2. [Retrieve](#retrieve)
-    3. [Create](#create)
-    4. [Replace](#replace)
-    5. [Delete](#delete)
+    1. [Retrieve](#retrieve)
+    1. [Create](#create)
+    1. [Replace](#replace)
+    1. [Delete](#delete)
 
-<!-- ## Attributes <a name="attributes"></a> -->
+# cards
+
 ## Attributes
 
 * `id`: The card's unique id in the Database
@@ -44,8 +47,7 @@
 * `atkType2`: The type of the card's first attack
 * `rarity`: Describes how rare the card is
 
-<!-- ## Database Schema <a name="db_schema"></a> -->
-## Database Schema
+# Database Schema
 
 ```sql
 CREATE TABLE cards
@@ -65,24 +67,24 @@ CREATE TABLE types
 ```
 
 <!-- ## REST Endpoints <a name="rest_endpoints"></a> -->
-## REST Endpoints
+# REST Endpoints
 
-- ### List <a name="list"></a>
+- ## List
 	- **Method:** `GET`
 	- **Path:** `http://localhost:8080/cards`
 
-- ### Retrieve <a name="retrieve"></a>
+- ## Retrieve
 	- **Method:** `GET`
 	- **Path:** `http://localhost:8080/cards/card0`
 
-- ### Create <a name="create"></a>
+- ## Create
 	- **Method:** `POST`
 	- **Path:** `http://localhost:8080/cards`
 
-- ### Replace <a name="replace"></a>
+- ## Replace
 	- **Method:** `PATCH`
 	- **Path:** `http://localhost:8080/cards/card0`
 
-- ### Delete <a name="delete"></a>
+- ## Delete
 	- **Method:** `DELETE`
 	- **Path:** `http://localhost:8080/cards/card0`
