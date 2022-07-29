@@ -1,18 +1,29 @@
  <!-- Adam Manning 2021 -->
+<head>
+<link rel="stylesheet" type="text/css" media="all" href="css/readme.css" />
+</head>
 
 # Pokémon Card Collection
 
-[pikachu]: img/25.gif
-[venusaur]: img/3.gif
-[charizard]: img/6.gif
-[blastoise]: img/9.gif
+[pikachu_sprite]: img/25.gif
+[venusaur_sprite]: img/3.gif
+[charizard_sprite]: img/6.gif
+[blastoise_sprite]: img/9.gif
 
+[pikachu_card]: https://archives.bulbagarden.net/media/upload/c/cd/PikachuJungle60.jpg
+[venusar_card]: https://archives.bulbagarden.net/media/upload/a/a4/VenusaurBaseSet15.jpg
+[charizard_card]: https://archives.bulbagarden.net/media/upload/4/4e/CharizardBaseSet4.jpg
+[blastoise_card]: https://archives.bulbagarden.net/media/upload/a/a5/BlastoiseBaseSet2.jpg
 
-| ![Pikachu][pikachu] | ![Venusaur][venusaur] | ![Charizard][charizard] | ![Blastoise][blastoise] |
+| ![Pikachu][pikachu_sprite] | ![Venusaur][venusaur_sprite] | ![Charizard][charizard_sprite] | ![Blastoise][blastoise_sprite] |
 | :-----------------: | :-------------------: | :---------------------: | :---------------------: |
-| <img src="https://archives.bulbagarden.net/media/upload/c/cd/PikachuJungle60.jpg" height="175"> | <img src="https://archives.bulbagarden.net/media/upload/a/a4/VenusaurBaseSet15.jpg" height="175px" alt="Venusaur"> | <img src="https://archives.bulbagarden.net/media/upload/4/4e/CharizardBaseSet4.jpg"  height="175px" alt="Charizard"> | <img src="https://archives.bulbagarden.net/media/upload/a/a5/BlastoiseBaseSet2.jpg"  height="175px" alt="Blastoise"> |
+| ![Pikachu Card][pikachu_card]| | | |
+
+<!-- This code works -->
+<!-- | <img src="https://archives.bulbagarden.net/media/upload/c/cd/PikachuJungle60.jpg" height="175"> | <img src="https://archives.bulbagarden.net/media/upload/a/a4/VenusaurBaseSet15.jpg" height="175px" alt="Venusaur"> | <img src="https://archives.bulbagarden.net/media/upload/4/4e/CharizardBaseSet4.jpg"  height="175px" alt="Charizard"> | <img src="https://archives.bulbagarden.net/media/upload/a/a5/BlastoiseBaseSet2.jpg"  height="175px" alt="Blastoise"> | -->
 
 # Table of Contents
+
 1. [Table of Contents](#table-of-contents)
 1. [About](#about)
 1. [cards](#cards)
