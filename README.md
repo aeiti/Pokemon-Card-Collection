@@ -35,6 +35,8 @@
 
 I began this project as an assignment for college and it is intended to demonstrate the use of the REST API.
 
+The purpose of this web app is to track a Pokémon card collection in a database.
+
 [Back to Top](#table-of-contents)
 
 # cards
@@ -123,6 +125,8 @@ CREATE TABLE types
 # Webpage
 
 ## Open the Webpage
+1. [Build the database](#building-the-database)
+1. [Start the server](#starting-the-server)
 1. Open Safari
 1. File -> Open -> {Pokemon-Card-Collection}/index.html
 
