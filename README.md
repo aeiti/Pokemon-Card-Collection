@@ -16,7 +16,7 @@
 
 ![Surfing Pikachu][pikachu] ![Venusaur][venusaur] ![Charizard][charizard] ![Blastoise][blastoise]
 
-<img src="https://cdn.bulbagarden.net/upload/thumb/1/1a/SurfingPikachuWizardsPromo28.jpg/200px-SurfingPikachuWizardsPromo28.jpg" height="175">
+<img src="https://bulbapedia.bulbagarden.net/wiki/File:PikachuJungle60.jpg" height="175">
 <img src="https://cdn.bulbagarden.net/upload/thumb/d/d9/VenusaurWizardsPromo13.jpg/180px-VenusaurWizardsPromo13.jpg" height="175px" alt="Venusaur">
 <img src="https://cdn.bulbagarden.net/upload/thumb/4/4e/CharizardBaseSet4.jpg/200px-CharizardBaseSet4.jpg"  height="175px" alt="Charizard">
 <img src="https://cdn.bulbagarden.net/upload/thumb/a/a5/BlastoiseBaseSet2.jpg/180px-BlastoiseBaseSet2.jpg"  height="175px" alt="Blastoise">
