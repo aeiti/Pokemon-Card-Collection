@@ -21,9 +21,9 @@
 -->
 
 # Table of Contents
-1. [Attributes](#Attributes)
-2. [Database Schema](#Database_Schema)
-3. [REST Endpoints](#rest_endpoints)
+1. [Attributes](#attributes)
+2. [Database Schema](#database-schema)
+3. [REST Endpoints](#rest-endpoints)
     1. [List](#list)
     2. [Retrieve](#retrieve)
     3. [Create](#create)
