@@ -43,7 +43,10 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
             print(arg)
 
     def incRequestCount(self):
+        # pylint: disable=global-statement
         global numRequests
+        # pylint: enable=global-statement
+
         numRequests = numRequests + 1
 
     def requestStarted(self, requestType):
