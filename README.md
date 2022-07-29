@@ -1,7 +1,4 @@
  <!-- Adam Manning 2021 -->
-<head>
-<link rel="stylesheet" type="text/css" media="all" href="css/readme.css" />
-</head>
 
 # Pokémon Card Collection
 
