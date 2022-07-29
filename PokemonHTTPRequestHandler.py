@@ -10,7 +10,7 @@ import json
 
 from DBController import DBController
 
-numRequests = 0
+num_requests = 0
 
 # Headers
 HEADER_CONTENT_TYPE = "Content-Type"
@@ -44,37 +44,37 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def incRequestCount(self):
         # pylint: disable=global-statement
-        global numRequests
+        global num_requests
         # pylint: enable=global-statement
 
-        numRequests = numRequests + 1
+        num_requests = num_requests + 1
 
     def requestStarted(self, requestType):
         self.incRequestCount()
-        print(f"START REQUEST NUMBER {numRequests}")
+        print(f"START REQUEST NUMBER {num_requests}")
         self.showPath(requestType)
 
     def requestEnded(self):
-        print(f"END REQUEST NUMBER {numRequests}")
+        print(f"END REQUEST NUMBER {num_requests}")
         print()
 
     def showPath(self, requestType):
         print(f"{requestType} PATH: {self.path}")
 
     def extractCardIdFromPath(self):
-        splitPath = self.path.split('/')
+        split_path = self.path.split('/')
 
-        if len(splitPath) == 3:
-            collectionPath = splitPath[1]
-            elementPath = splitPath[2]
+        if len(split_path) == 3:
+            collection_path = split_path[1]
+            element_path = split_path[2]
 
-            if( collectionPath == "cards" and \
-                len(elementPath) > 4 and \
-                elementPath[0:4] == "card" ):
+            if( collection_path == "cards" and \
+                len(element_path) > 4 and \
+                element_path[0:4] == "card" ):
 
-                cardNo = int(elementPath[4:])
+                card_num = int(element_path[4:])
 
-                return cardNo
+                return card_num
         return -1
 
     def readPageFromFile(self, filename):
@@ -97,19 +97,19 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
     def getCardFromDB(self):
         db = DBController()
 
-        cid = self.path.split("/")[2][4:]
+        card_id = self.path.split("/")[2][4:]
 
-        if db.cardExists(cid):
-            card = db.getCard(cid)
+        if db.cardExists(card_id):
+            card = db.getCard(card_id)
 
             self.send_response(200)
             self.enableCORS()
             self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
             self.end_headers()
 
-            jsonCard = json.dumps(card)
+            json_card = json.dumps(card)
 
-            self.wfile.write(bytes(jsonCard, UTF8))
+            self.wfile.write(bytes(json_card, UTF8))
 
         else:
             self.send_response(404)
@@ -121,54 +121,54 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
         cards = db.getCards()
 
-        jsonCards = json.dumps(cards)
+        json_cards = json.dumps(cards)
 
-        self.verbosePrint(jsonCards)
+        self.verbosePrint(json_cards)
 
         self.send_response(200)
         self.enableCORS()
         self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
 
-        self.wfile.write(bytes(jsonCards, UTF8))
+        self.wfile.write(bytes(json_cards, UTF8))
 
     def getNamesFromDB(self):
         db = DBController()
 
         names = db.getNames()
-        jsonNames = json.dumps(names)
+        json_names = json.dumps(names)
 
         self.send_response(200)
         self.enableCORS()
         self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
 
-        self.wfile.write(bytes(jsonNames, UTF8))
+        self.wfile.write(bytes(json_names, UTF8))
 
     def getRaritiesFromDB(self):
         db = DBController()
 
         rarities = db.getRarities()
-        jsonRarities = json.dumps(rarities)
+        json_rarities = json.dumps(rarities)
 
         self.send_response(200)
         self.enableCORS()
         self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
-        self.wfile.write(bytes(jsonRarities, UTF8))
+        self.wfile.write(bytes(json_rarities, UTF8))
 
     def getTypesFromDB(self):
         db = DBController()
 
         types = db.getTypes()
-        jsonTypes = json.dumps(types)
+        json_types = json.dumps(types)
 
         self.send_response(200)
         self.enableCORS()
         self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
 
-        self.wfile.write(bytes(jsonTypes, UTF8))
+        self.wfile.write(bytes(json_types, UTF8))
 
     def do_GET(self):
         self.requestStarted("GET")
@@ -202,8 +202,8 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.requestStarted("POST")
 
         if self.path == "/cards":
-            bodyLen = int(self.headers["Content-Length"])
-            body = self.rfile.read(bodyLen).decode(UTF8)
+            body_len = int(self.headers["Content-Length"])
+            body = self.rfile.read(body_len).decode(UTF8)
 
             self.verbosePrint(body)
 
@@ -211,15 +211,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
             self.verbosePrint(parsed_body)
 
             if not ( \
-                CARD_SPECIES_ID      in parsed_body or \
-                CARD_NAME      in parsed_body or \
-                CARD_TYPE_ID      in parsed_body or \
-                CARD_HP        in parsed_body or \
-                CARD_ATK_NAME_1  in parsed_body or \
-                CARD_ATK_TYPE_1  in parsed_body or \
-                CARD_ATK_NAME_2  in parsed_body or \
-                CARD_ATK_TYPE_2  in parsed_body or \
-                CARD_RARITY    in parsed_body \
+                CARD_SPECIES_ID in parsed_body or \
+                CARD_NAME       in parsed_body or \
+                CARD_TYPE_ID    in parsed_body or \
+                CARD_HP         in parsed_body or \
+                CARD_ATK_NAME_1 in parsed_body or \
+                CARD_ATK_TYPE_1 in parsed_body or \
+                CARD_ATK_NAME_2 in parsed_body or \
+                CARD_ATK_TYPE_2 in parsed_body or \
+                CARD_RARITY     in parsed_body \
             ):
                 print("Invalid headers in request")
 
@@ -256,26 +256,26 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_PUT(self):
         self.requestStarted("PATCH")
 
-        cardNo = int(self.extractCardIdFromPath())
+        card_num = int(self.extractCardIdFromPath())
 
         db = DBController()
 
-        if db.cardExists(cardNo):
-            bodyLen = int(self.headers["Content-Length"])
-            body = self.rfile.read(bodyLen).decode(UTF8)
+        if db.cardExists(card_num):
+            body_len = int(self.headers["Content-Length"])
+            body = self.rfile.read(body_len).decode(UTF8)
 
             parsed_body = parse_qs(body)
 
             if not ( \
-                CARD_SPECIES_ID      in parsed_body or \
-                CARD_NAME      in parsed_body or \
-                CARD_TYPE_ID      in parsed_body or \
-                CARD_HP        in parsed_body or \
-                CARD_ATK_NAME_1  in parsed_body or \
-                CARD_ATK_TYPE_1  in parsed_body or \
-                CARD_ATK_NAME_2  in parsed_body or \
-                CARD_ATK_TYPE_2  in parsed_body or \
-                CARD_RARITY    in parsed_body \
+                CARD_SPECIES_ID in parsed_body or \
+                CARD_NAME       in parsed_body or \
+                CARD_TYPE_ID    in parsed_body or \
+                CARD_HP         in parsed_body or \
+                CARD_ATK_NAME_1 in parsed_body or \
+                CARD_ATK_TYPE_1 in parsed_body or \
+                CARD_ATK_NAME_2 in parsed_body or \
+                CARD_ATK_TYPE_2 in parsed_body or \
+                CARD_RARITY     in parsed_body \
             ):
                 print("Invalid headers in request")
 
@@ -310,18 +310,18 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_DELETE(self):
         self.requestStarted("DELETE")
 
-        splitPath = self.path.split('/')
+        split_path = self.path.split('/')
 
-        if len(splitPath) == 3:
-            collectionPath = splitPath[1]
-            elementPath = splitPath[2]
+        if len(split_path) == 3:
+            collection_path = split_path[1]
+            element_path = split_path[2]
 
             db = DBController()
 
-            cardNo = int(elementPath[4:])
+            card_num = int(element_path[4:])
 
-            if(collectionPath == "cards" and elementPath[0:4] == "card" and db.cardExists(cardNo)):
-                db.deleteCard(cardNo)
+            if(collection_path == "cards" and element_path[0:4] == "card" and db.cardExists(card_num)):
+                db.deleteCard(card_num)
 
                 self.send_response(200)
                 self.enableCORS()

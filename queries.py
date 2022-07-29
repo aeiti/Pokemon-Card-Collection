@@ -1,19 +1,19 @@
  # Adam Manning 2021
 
-createCard = "INSERT INTO cards (s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+CREATE_CARD = "INSERT INTO cards (s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
-deleteCard = "DELETE FROM cards WHERE id=?"
+DELETE_CARD = "DELETE FROM cards WHERE id=?"
 
-updateCard = "UPDATE cards SET s_id=?, name=?, type=?, hp=?, atkName1=?, atkName2=?, atkType1=?, atkType2=?, rarity=? WHERE id=?"
+UPDATE_CARD = "UPDATE cards SET s_id=?, name=?, type=?, hp=?, atkName1=?, atkName2=?, atkType1=?, atkType2=?, rarity=? WHERE id=?"
 
-getCard = "SELECT * FROM cards WHERE id=?"
-getCards = "SELECT * FROM cards"
+GET_CARD = "SELECT * FROM cards WHERE id=?"
+GET_CARDS = "SELECT * FROM cards"
 
-getName = "SELECT * FROM names WHERE id=?"
-getNames = "SELECT * FROM names"
+GET_NAME = "SELECT * FROM names WHERE id=?"
+GET_NAMES = "SELECT * FROM names"
 
-getRarity = "SELECT * FROM rarities WHERE id=?"
-getRarities = "SELECT * FROM rarities"
+GET_RARITY = "SELECT * FROM rarities WHERE id=?"
+GET_RARITIES = "SELECT * FROM rarities"
 
-getType = "SELECT * FROM types WHERE id=?"
-getTypes = "SELECT * FROM types"
+GET_TYPE = "SELECT * FROM types WHERE id=?"
+GET_TYPES = "SELECT * FROM types"

@@ -17,20 +17,21 @@ def dict_factory(cursor, row):
 
 dbDir = "db/"
 class DBController:
+
     def __init__(self):
-        self.dbName = dbDir + "pokemon.db"
-        self.connection = sqlite3.connect(self.dbName)
+        self.DB_NAME = dbDir + "pokemon.db"
+        self.connection = sqlite3.connect(self.DB_NAME)
         self.connection.row_factory = dict_factory
         self.cursor = self.connection.cursor()
 
     def __del__(self):
         self.connection.close()
 
-    def getDatabseName(self):
-        return self.dbName
+    def getDatabaseName(self):
+        return self.DB_NAME
 
-    def cardExists(self, cid):
-        self.cursor.execute(queries.getCard, (cid,))
+    def cardExists(self, card_id):
+        self.cursor.execute(queries.GET_CARD, (card_id,))
         exists = self.cursor.fetchall()
 
         if len(exists) == 1:
@@ -38,54 +39,54 @@ class DBController:
 
         return False
 
-    def createCard(self, s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity):
-        self.cursor.execute(queries.createCard, (s_id, name, t_id, hp, atkName1, atkType1, atkName2, atkType2, rarity))
+    def createCard(self, species_id, name, type_id, hp, atk_name1, atk_name2, atk_type1, atk_type2, rarity):
+        self.cursor.execute(queries.CREATE_CARD, (species_id, name, type_id, hp, atk_name1, atk_type1, atk_name2, atk_type2, rarity))
         self.connection.commit()
 
-    def deleteCard(self, c_id):
-        self.cursor.execute(queries.deleteCard, (c_id,))
+    def deleteCard(self, card_id):
+        self.cursor.execute(queries.DELETE_CARD, (card_id,))
         self.connection.commit()
 
-    def updateCard(self, s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid):
-        self.cursor.execute(queries.updateCard, (s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid))
+    def updateCard(self, species_id, name, type_id, hp, atk_name1, atk_name2, atk_type1, atk_type2, rarity, card_id):
+        self.cursor.execute(queries.UPDATE_CARD, (species_id, name, type_id, hp, atk_name1, atk_name2, atk_type1, atk_type2, rarity, card_id))
         self.connection.commit()
 
-    def getCard(self, c_id):
-        self.cursor.execute(queries.getCard, (c_id,))
+    def getCard(self, card_id):
+        self.cursor.execute(queries.GET_CARD, (card_id,))
         rows = self.cursor.fetchall()
         return rows
 
     def getCards(self):
-        self.cursor.execute(queries.getCards)
+        self.cursor.execute(queries.GET_CARDS)
         rows = self.cursor.fetchall()
         return rows
 
-    def getName(self, n_id):
-        self.cursor.execute(queries.getName, (n_id,))
+    def getName(self, name_id):
+        self.cursor.execute(queries.GET_NAME, (name_id,))
         rows = self.cursor.fetchall()
         return rows
 
     def getNames(self):
-        self.cursor.execute(queries.getNames)
+        self.cursor.execute(queries.GET_NAMES)
         rows = self.cursor.fetchall()
         return rows
 
-    def getRarity(self, r_id):
-        self.cursor.execute(queries.getRarity, (r_id,))
+    def getRarity(self, rarity_id):
+        self.cursor.execute(queries.GET_RARITY, (rarity_id,))
         rows = self.cursor.fetchall()
         return rows
 
     def getRarities(self):
-        self.cursor.execute(queries.getRarities)
+        self.cursor.execute(queries.GET_RARITIES)
         rows = self.cursor.fetchall()
         return rows
 
-    def getType(self, t_id):
-        self.cursor.execute(queries.getType, (t_id,))
+    def getType(self, type_id):
+        self.cursor.execute(queries.GET_TYPE, (type_id,))
         rows = self.cursor.fetchall()
         return rows
 
     def getTypes(self):
-        self.cursor.execute(queries.getTypes)
+        self.cursor.execute(queries.GET_TYPES)
         rows = self.cursor.fetchall()
         return rows

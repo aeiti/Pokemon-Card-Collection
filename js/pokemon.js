@@ -341,7 +341,7 @@ function makeCardEditButton(card)
     }
     else
     {
-      txtAtkName1.value = card[cardAtkName2Str];
+      txtAtkName1.value = card[cardAtkName1Str];
     }
 
     if(card[cardAtkName2Str] == "None")
@@ -475,12 +475,12 @@ function makeAttack2Div(card)
 {
   log("Creating Attack2Div");
 
-  let attack1Div = makeDiv();
-  attack1Div.innerHTML = "Atttack 2: " + card[cardAtkName2Str];
+  let attack2Div = makeDiv();
+  attack2Div.innerHTML = "Atttack 2: " + card[cardAtkName2Str];
 
   log("Finished creating Attack2Div");
 
-  return attack1Div;
+  return attack2Div;
 }
 
 function makeRarityDiv(card)
