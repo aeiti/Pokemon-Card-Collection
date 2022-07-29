@@ -1,7 +1,4 @@
  <!-- Adam Manning 2021 -->
- <h6>
-  *I began this project as an assignment for college and it is intended to demonstrate the use of the REST API.
- </h6>
 
 # Pokémon Card Collection
 
@@ -35,6 +32,8 @@
     1. [Open the Webpage](#open-the-webpage)
 
 # About
+
+I began this project as an assignment for college and it is intended to demonstrate the use of the REST API.
 
 [Back to Top](#table-of-contents)
 
