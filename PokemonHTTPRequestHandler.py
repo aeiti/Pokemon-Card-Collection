@@ -1,42 +1,45 @@
-# Adam Manning 2021
-
-from DBController import DBController
+"""
+PokemonHTTPRequestHandler.py
+Adam Manning (C) 2021
+"""
 
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs
 
 import json
 
+from DBController import DBController
+
 numRequests = 0
 
 # Headers
-header_ContentType = "Content-Type"
-header_CORS = "Access-Control-Allow-Origin"
+HEADER_CONTENT_TYPE = "Content-Type"
+HEADER_CORS = "Access-Control-Allow-Origin"
 
-content_TypeJSON = "application/json"
-content_TypeHTML = "text/html"
+CONTENT_TYPE_JSON = "application/json"
+CONTENT_TYPE_HTML = "text/html"
 
-utf8 = "utf-8"
+UTF8 = "utf-8"
 
-err = "err/{0}.html"
-err404 = err.format(404)
+ERR = "err/{0}.html"
+ERR_404 = ERR.format(404)
 
-outputMode = "verbose";
+OUTPUT_MODE = "verbose"
 
 # Card keys
-cardSpecID = "s_id"
-cardName = "name"
-cardTypeID = "type"
-cardHP = "hp"
-cardAtkName1 = "atkName1"
-cardAtkName2 = "atkName2"
-cardAtkType1 = "atkType1"
-cardAtkType2 = "atkType2"
-cardRarity = "rarity"
+CARD_SPECIES_ID = "s_id"
+CARD_NAME = "name"
+CARD_TYPE_ID = "type"
+CARD_HP = "hp"
+CARD_ATK_NAME_1 = "atkName1"
+CARD_ATK_NAME_2 = "atkName2"
+CARD_ATK_TYPE_1 = "atkType1"
+CARD_ATK_TYPE_2 = "atkType2"
+CARD_RARITY = "rarity"
 
 class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
     def verbosePrint(self, arg):
-        if outputMode == "verbose":
+        if OUTPUT_MODE == "verbose":
             print(arg)
 
     def incRequestCount(self):
@@ -59,8 +62,8 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         splitPath = self.path.split('/')
 
         if len(splitPath) == 3:
-            collectionPath = splitPath[1];
-            elementPath = splitPath[2];
+            collectionPath = splitPath[1]
+            elementPath = splitPath[2]
 
             if( collectionPath == "cards" and \
                 len(elementPath) > 4 and \
@@ -72,15 +75,12 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         return -1
 
     def readPageFromFile(self, filename):
-        f = open(filename)
-
-        for line in f:
-            self.wfile.write(line)
-
-        f.close()
+        with open(filename, encoding=UTF8) as f:
+            for line in f:
+                self.wfile.write(line)
 
     def enableCORS(self):
-        self.send_header(header_CORS, "*")
+        self.send_header(HEADER_CORS, "*")
 
     def sendCode404(self):
         self.send_response(404)
@@ -88,8 +88,8 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def sendPage404(self):
         self.send_response(404)
-        self.send_header(header_ContentType, content_TypeHTML)
-        self.readPageFromFile(err404)
+        self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_HTML)
+        self.readPageFromFile(ERR_404)
 
     def getCardFromDB(self):
         db = DBController()
@@ -101,12 +101,12 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
             self.send_response(200)
             self.enableCORS()
-            self.send_header(header_ContentType, content_TypeJSON)
+            self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
             self.end_headers()
 
             jsonCard = json.dumps(card)
 
-            self.wfile.write(bytes(jsonCard, utf8))
+            self.wfile.write(bytes(jsonCard, UTF8))
 
         else:
             self.send_response(404)
@@ -123,11 +123,11 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.verbosePrint(jsonCards)
 
         self.send_response(200)
-        self.enableCORS();
-        self.send_header(header_ContentType, content_TypeJSON)
+        self.enableCORS()
+        self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
 
-        self.wfile.write(bytes(jsonCards, utf8))
+        self.wfile.write(bytes(jsonCards, UTF8))
 
     def getNamesFromDB(self):
         db = DBController()
@@ -137,10 +137,10 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.enableCORS()
-        self.send_header(header_ContentType, content_TypeJSON)
+        self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
 
-        self.wfile.write(bytes(jsonNames, utf8))
+        self.wfile.write(bytes(jsonNames, UTF8))
 
     def getRaritiesFromDB(self):
         db = DBController()
@@ -150,9 +150,9 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.enableCORS()
-        self.send_header(header_ContentType, content_TypeJSON)
+        self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
-        self.wfile.write(bytes(jsonRarities, utf8))
+        self.wfile.write(bytes(jsonRarities, UTF8))
 
     def getTypesFromDB(self):
         db = DBController()
@@ -162,10 +162,10 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.enableCORS()
-        self.send_header(header_ContentType, content_TypeJSON)
+        self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_JSON)
         self.end_headers()
 
-        self.wfile.write(bytes(jsonTypes, utf8))
+        self.wfile.write(bytes(jsonTypes, UTF8))
 
     def do_GET(self):
         self.requestStarted("GET")
@@ -200,7 +200,7 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
         if self.path == "/cards":
             bodyLen = int(self.headers["Content-Length"])
-            body = self.rfile.read(bodyLen).decode(utf8)
+            body = self.rfile.read(bodyLen).decode(UTF8)
 
             self.verbosePrint(body)
 
@@ -208,15 +208,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
             self.verbosePrint(parsed_body)
 
             if not ( \
-                cardSpecID      in parsed_body or \
-                cardName      in parsed_body or \
-                cardTypeID      in parsed_body or \
-                cardHP        in parsed_body or \
-                cardAtkName1  in parsed_body or \
-                cardAtkType1  in parsed_body or \
-                cardAtkName2  in parsed_body or \
-                cardAtkType2  in parsed_body or \
-                cardRarity    in parsed_body \
+                CARD_SPECIES_ID      in parsed_body or \
+                CARD_NAME      in parsed_body or \
+                CARD_TYPE_ID      in parsed_body or \
+                CARD_HP        in parsed_body or \
+                CARD_ATK_NAME_1  in parsed_body or \
+                CARD_ATK_TYPE_1  in parsed_body or \
+                CARD_ATK_NAME_2  in parsed_body or \
+                CARD_ATK_TYPE_2  in parsed_body or \
+                CARD_RARITY    in parsed_body \
             ):
                 print("Invalid headers in request")
 
@@ -228,15 +228,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
                 db = DBController()
 
                 db.createCard( \
-                    parsed_body[cardSpecID][0], \
-                    parsed_body[cardName][0], \
-                    parsed_body[cardTypeID][0], \
-                    parsed_body[cardHP][0], \
-                    parsed_body[cardAtkName1][0], \
-                    parsed_body[cardAtkType1][0], \
-                    parsed_body[cardAtkName2][0], \
-                    parsed_body[cardAtkType2][0], \
-                    parsed_body[cardRarity][0] \
+                    parsed_body[CARD_SPECIES_ID][0], \
+                    parsed_body[CARD_NAME][0], \
+                    parsed_body[CARD_TYPE_ID][0], \
+                    parsed_body[CARD_HP][0], \
+                    parsed_body[CARD_ATK_NAME_1][0], \
+                    parsed_body[CARD_ATK_TYPE_1][0], \
+                    parsed_body[CARD_ATK_NAME_2][0], \
+                    parsed_body[CARD_ATK_TYPE_2][0], \
+                    parsed_body[CARD_RARITY][0] \
                 )
 
                 print("Card created")
@@ -259,20 +259,20 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
         if db.cardExists(cardNo):
             bodyLen = int(self.headers["Content-Length"])
-            body = self.rfile.read(bodyLen).decode(utf8)
+            body = self.rfile.read(bodyLen).decode(UTF8)
 
             parsed_body = parse_qs(body)
 
             if not ( \
-                cardSpecID      in parsed_body or \
-                cardName      in parsed_body or \
-                cardTypeID      in parsed_body or \
-                cardHP        in parsed_body or \
-                cardAtkName1  in parsed_body or \
-                cardAtkType1  in parsed_body or \
-                cardAtkName2  in parsed_body or \
-                cardAtkType2  in parsed_body or \
-                cardRarity    in parsed_body \
+                CARD_SPECIES_ID      in parsed_body or \
+                CARD_NAME      in parsed_body or \
+                CARD_TYPE_ID      in parsed_body or \
+                CARD_HP        in parsed_body or \
+                CARD_ATK_NAME_1  in parsed_body or \
+                CARD_ATK_TYPE_1  in parsed_body or \
+                CARD_ATK_NAME_2  in parsed_body or \
+                CARD_ATK_TYPE_2  in parsed_body or \
+                CARD_RARITY    in parsed_body \
             ):
                 print("Invalid headers in request")
 
@@ -282,15 +282,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
             else:
                 db.updateCard( \
-                    parsed_body[cardSpecID][0], \
-                    parsed_body[cardName][0], \
-                    parsed_body[cardTypeID][0], \
-                    parsed_body[cardHP][0], \
-                    parsed_body[cardAtkName1][0], \
-                    parsed_body[cardAtkName2][0], \
-                    parsed_body[cardAtkType1][0], \
-                    parsed_body[cardAtkType2][0], \
-                    parsed_body[cardRarity][0], \
+                    parsed_body[CARD_SPECIES_ID][0], \
+                    parsed_body[CARD_NAME][0], \
+                    parsed_body[CARD_TYPE_ID][0], \
+                    parsed_body[CARD_HP][0], \
+                    parsed_body[CARD_ATK_NAME_1][0], \
+                    parsed_body[CARD_ATK_NAME_2][0], \
+                    parsed_body[CARD_ATK_TYPE_1][0], \
+                    parsed_body[CARD_ATK_TYPE_2][0], \
+                    parsed_body[CARD_RARITY][0], \
                     parsed_body["id"][0] \
                 )
 
@@ -304,35 +304,31 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.requestEnded()
 
-
     def do_DELETE(self):
         self.requestStarted("DELETE")
 
         splitPath = self.path.split('/')
 
         if len(splitPath) == 3:
-            collectionPath = splitPath[1];
-            elementPath = splitPath[2];
+            collectionPath = splitPath[1]
+            elementPath = splitPath[2]
 
-            db = DBController();
+            db = DBController()
 
             cardNo = int(elementPath[4:])
 
-            if( collectionPath == "cards" and \
-                elementPath[0:4] == "card" and \
-                db.cardExists(cardNo) \
-                ):
-                    db.deleteCard(cardNo)
+            if(collectionPath == "cards" and elementPath[0:4] == "card" and db.cardExists(cardNo)):
+                db.deleteCard(cardNo)
 
-                    self.send_response(200);
-                    self.enableCORS();
-                    self.end_headers();
+                self.send_response(200)
+                self.enableCORS()
+                self.end_headers()
 
             else:
-                self.sendCode404();
+                self.sendCode404()
 
         else:
-            self.sendCode404();
+            self.sendCode404()
 
         self.requestEnded()
 

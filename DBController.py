@@ -1,4 +1,8 @@
- # Adam Manning 2021
+"""
+DBController.py
+Adam Manning 2021
+Allows for access to the database
+"""
 
 import sqlite3
 
@@ -23,27 +27,27 @@ class DBController:
         self.connection.close()
 
     def getDatabseName(self):
-        return self.dbname
+        return self.dbName
 
     def cardExists(self, cid):
         self.cursor.execute(queries.getCard, (cid,))
-        exists = self.cursor.fetchall();
+        exists = self.cursor.fetchall()
 
         if len(exists) == 1:
             return True
 
         return False
 
-    def createCard(self, s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity):
-        self.cursor.execute(queries.createCard, (s_id, name, type, hp, atkName1, atkType1, atkName2, atkType2, rarity))
+    def createCard(self, s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity):
+        self.cursor.execute(queries.createCard, (s_id, name, t_id, hp, atkName1, atkType1, atkName2, atkType2, rarity))
         self.connection.commit()
 
     def deleteCard(self, c_id):
         self.cursor.execute(queries.deleteCard, (c_id,))
         self.connection.commit()
 
-    def updateCard(self, s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid):
-        self.cursor.execute(queries.updateCard, (s_id, name, type, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid))
+    def updateCard(self, s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid):
+        self.cursor.execute(queries.updateCard, (s_id, name, t_id, hp, atkName1, atkName2, atkType1, atkType2, rarity, cid))
         self.connection.commit()
 
     def getCard(self, c_id):
@@ -76,8 +80,8 @@ class DBController:
         rows = self.cursor.fetchall()
         return rows
 
-    def getType(self, type):
-        self.cursor.execute(queries.getType, (type,))
+    def getType(self, t_id):
+        self.cursor.execute(queries.getType, (t_id,))
         rows = self.cursor.fetchall()
         return rows
 

@@ -1,4 +1,7 @@
+-- Builds the required database
+
 DROP TABLE IF EXISTS cards;
+
 CREATE TABLE cards
   (
     id INTEGER PRIMARY KEY, s_id INTEGER,

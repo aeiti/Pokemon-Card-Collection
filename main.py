@@ -1,19 +1,24 @@
-# pylint: disable=invalid-name
-# pylint: disable=missing-module-docstring
-# pylint: disable=missing-function-docstring
+"""
+main.py
+Adam Manning (C) 2022
+"""
 
 from http.server import HTTPServer
 from PokemonHTTPRequestHandler import PokemonHTTPRequestHandler
 
 def main():
-    ip = "0.0.0.0"
-    port = 8080
+    """
+    Program's main function
+    """
 
-    listen = (ip, port)
+    ip_address = "0.0.0.0"
+    port_num = 8080
+
+    listen = (ip_address, port_num)
 
     server = HTTPServer(listen, PokemonHTTPRequestHandler)
 
-    print(f"Listening on {ip}:{port}")
+    print(f"Listening on {ip_address}:{port_num}")
 
     server.serve_forever()
 
