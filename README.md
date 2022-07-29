@@ -42,7 +42,7 @@
 * `atkType2`: The type of the card's first attack
 * `rarity`: Describes how rare the card is
 
-## Database Schema
+## Database Schema <a name="db_schema"></a>
 ```sql
 CREATE TABLE cards
   (
@@ -60,24 +60,24 @@ CREATE TABLE types
   (id INTEGER PRIMARY KEY, type VARCHAR(255));
 ```
 
-## REST Endpoints
+## REST Endpoints <a name="rest_endpoints"></a>
 
-- ### List
+- ### List <a name="list"></a>
 	- **Method:** `GET`
 	- **Path:** `http://localhost:8080/cards`
 
-- ### Retrieve
+- ### Retrieve <a name="retrieve"></a>
 	- **Method:** `GET`
 	- **Path:** `http://localhost:8080/cards/card0`
 
-- ### Create
+- ### Create <a name="create"></a>
 	- **Method:** `POST`
 	- **Path:** `http://localhost:8080/cards`
 
-- ### Replace
+- ### Replace <a name="replace"></a>
 	- **Method:** `PATCH`
 	- **Path:** `http://localhost:8080/cards/card0`
 
-- ### Delete
+- ### Delete <a name="delete"></a>
 	- **Method:** `DELETE`
 	- **Path:** `http://localhost:8080/cards/card0`
