@@ -640,32 +640,48 @@ function isValidFormData()
   let reqName = document.querySelector("#reqName");
   let reqHP = document.querySelector("#reqHP");
 
-  // Check if HP is a valid positive number
-  log("Checking HP...");
-  if(txtHP.value <= 0)
-  {
-    reqHP.className = "error";
-    validFormData = false;
-    log("Invalid data found: HP <= 0");
-  }
-  else
-  {
-    reqHP.className = "reqField";
-    log("HP OK");
-  }
-
   // Check if name is at least 1 character long
   log("Checking name...")
   if(txtCardName.value.length < 1)
   {
     reqName.className = "error";
+    reqName.innerHTML = "Too Short";
     validFormData = false;
     log("Invalid data found: Length of name cannot be 0");
+  }
+  else if(txtCardName.value.length > 16)
+  {
+    reqName.className = "error";
+    reqName.innerHTML = "Too Long";
+    validFormData = false;
+    log("Invalid data found: Length of name cannot be greater than 16 character");
   }
   else
   {
     reqName.className = "reqField";
     log("Name OK");
+  }
+
+  // Check if HP is a valid positive number
+  log("Checking HP...");
+  if(txtHP.value < 0)
+  {
+    reqHP.className = "error";
+    reqHP.innerHTML = "Too Low";
+    validFormData = false;
+    log("Invalid data found: HP < 0");
+  }
+  else if(!Number(txtHP.value))
+  {
+    reqHP.className = "error";
+    reqHP.innerHTML = "NaN";
+    validFormData = false;
+    log("Invalid data found: HP is not a number");
+  }
+  else
+  {
+    reqHP.className = "reqField";
+    log("HP OK");
   }
 
   log("Form data is: " + (validFormData ? "Valid" : "Invalid"));

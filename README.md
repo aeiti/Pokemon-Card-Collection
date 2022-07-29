@@ -1,6 +1,6 @@
  <!-- Adam Manning 2021 -->
  <h6>
-  *I began this project as an assignment for college and is intended to demonstrate the use of the REST API.
+  *I began this project as an assignment for college and it is intended to demonstrate the use of the REST API.
  </h6>
 
 # cards
@@ -20,7 +20,17 @@
 <img src="https://cdn.bulbagarden.net/upload/thumb/1/1a/SurfingPikachuWizardsPromo28.jpg/200px-SurfingPikachuWizardsPromo28.jpg" height="175"><img src="https://cdn.bulbagarden.net/upload/thumb/d/d9/VenusaurWizardsPromo13.jpg/180px-VenusaurWizardsPromo13.jpg" height="175px" alt="Venusaur"><img src="https://cdn.bulbagarden.net/upload/thumb/4/4e/CharizardBaseSet4.jpg/200px-CharizardBaseSet4.jpg"  height="175px" alt="Charizard"><img src="https://cdn.bulbagarden.net/upload/thumb/a/a5/BlastoiseBaseSet2.jpg/180px-BlastoiseBaseSet2.jpg"  height="175px" alt="Blastoise">
 -->
 
-## Attributes
+# Table of Contents
+1. [Attributes](#attributes)
+2. [Database Schema](#db_schema)
+3. [REST Endpoints](#rest_endpoints)
+  1. [List](#list)
+  2. [Retrieve](#retrieve)
+  3. [Create](#create)
+  4. [Replace](#replace)
+  5. [Delete](#delete)
+
+## Attributes <a name="attributes"></a>
 * `id`: The card's unique id in the Database
 * `s_id`: A number representing the species number in the National Poke&#769;dex
 * `name`: Either the name of the card or any desired nickname
