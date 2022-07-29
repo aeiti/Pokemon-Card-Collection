@@ -43,6 +43,7 @@
 * `rarity`: Describes how rare the card is
 
 ## Database Schema <a name="db_schema"></a>
+
 ```sql
 CREATE TABLE cards
   (
@@ -59,8 +60,8 @@ CREATE TABLE names
 CREATE TABLE types
   (id INTEGER PRIMARY KEY, type VARCHAR(255));
 ```
-<a name="rest_endpoints"></a>
-## REST Endpoints
+
+## REST Endpoints <a name="rest_endpoints"></a>
 
 - ### List <a name="list"></a>
 	- **Method:** `GET`
