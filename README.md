@@ -44,7 +44,8 @@
 * `atkType2`: The type of the card's first attack
 * `rarity`: Describes how rare the card is
 
-## Database Schema <a name="db_schema"></a>
+<!-- ## Database Schema <a name="db_schema"></a> -->
+## Database Schema
 
 ```sql
 CREATE TABLE cards
@@ -63,7 +64,8 @@ CREATE TABLE types
   (id INTEGER PRIMARY KEY, type VARCHAR(255));
 ```
 
-## REST Endpoints <a name="rest_endpoints"></a>
+<!-- ## REST Endpoints <a name="rest_endpoints"></a> -->
+## REST Endpoints
 
 - ### List <a name="list"></a>
 	- **Method:** `GET`
