@@ -235,7 +235,7 @@ function setEventHandlers()
   log("Finished setting event handlers");
 }
 
-// Creates a <button> element
+// Creates and returns a <button> element
 function makeButton()
 {
   log("Creating <button>");
@@ -247,7 +247,7 @@ function makeButton()
   return button;
 }
 
-// Creates a <div> element
+// Creates and returns a <div> element
 function makeDiv()
 {
   log("Creating <div>")
@@ -259,7 +259,7 @@ function makeDiv()
   return div;
 }
 
-// Creates a <img> element
+// Creates and returns an <img> element
 function makeImg()
 {
   log("Creating <img>")
