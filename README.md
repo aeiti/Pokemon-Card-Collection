@@ -14,16 +14,13 @@
 
 | ![Pikachu][pikachu_sprite] | ![Venusaur][venusaur_sprite] | ![Charizard][charizard_sprite] | ![Blastoise][blastoise_sprite] |
 | :-----------------: | :-------------------: | :---------------------: | :---------------------: |
-| ![Pikachu Card][pikachu_card]| | | |
-
-<!-- This code works -->
-<!-- | <img src="https://archives.bulbagarden.net/media/upload/c/cd/PikachuJungle60.jpg" height="175"> | <img src="https://archives.bulbagarden.net/media/upload/a/a4/VenusaurBaseSet15.jpg" height="175px" alt="Venusaur"> | <img src="https://archives.bulbagarden.net/media/upload/4/4e/CharizardBaseSet4.jpg"  height="175px" alt="Charizard"> | <img src="https://archives.bulbagarden.net/media/upload/a/a5/BlastoiseBaseSet2.jpg"  height="175px" alt="Blastoise"> | -->
+| <img src="https://archives.bulbagarden.net/media/upload/c/cd/PikachuJungle60.jpg" height="175"> | <img src="https://archives.bulbagarden.net/media/upload/a/a4/VenusaurBaseSet15.jpg" height="175px" alt="Venusaur"> | <img src="https://archives.bulbagarden.net/media/upload/4/4e/CharizardBaseSet4.jpg"  height="175px" alt="Charizard"> | <img src="https://archives.bulbagarden.net/media/upload/a/a5/BlastoiseBaseSet2.jpg"  height="175px" alt="Blastoise"> |
 
 # Table of Contents
 
 1. [Table of Contents](#table-of-contents)
 1. [About](#about)
-1. [cards](#cards)
+1. [Resource: `cards`](#resource-cards)
     1. [Attributes](#attributes)
 1. [Database](#database)
     1. [Database Schema](#database-schema)
@@ -41,13 +38,14 @@
 
 # About
 
+
 I began this project as an assignment for college and it is intended to demonstrate the use of the REST API.
 
 The purpose of this web app is to track a Pokémon card collection in a database.
 
 [Back to Top](#table-of-contents)
 
-# cards
+# Resource: cards
 
 ## Attributes
 
