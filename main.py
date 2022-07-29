@@ -1,3 +1,7 @@
+# pylint: disable=invalid-name
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-function-docstring
+
 from http.server import HTTPServer
 from PokemonHTTPRequestHandler import PokemonHTTPRequestHandler
 
@@ -9,7 +13,7 @@ def main():
 
     server = HTTPServer(listen, PokemonHTTPRequestHandler)
 
-    print("Listening on {0}:{1}".format(ip, port))
+    print(f"Listening on {ip}:{port}")
 
     server.serve_forever()
 

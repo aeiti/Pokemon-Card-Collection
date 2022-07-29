@@ -11,7 +11,7 @@ if [ $choice == 'y' ] ; then
   rm -f pokemon.db
   touch pokemon.db
   sqlite3 pokemon.db < buildDatabase.sql
-  python buildDatabase.py
+  python3 build_database.py
   echo "Finished building database"
 else
   echo "Did not build database"
