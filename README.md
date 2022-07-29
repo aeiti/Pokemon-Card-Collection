@@ -24,13 +24,15 @@
 1. [Attributes](#attributes)
 2. [Database Schema](#db_schema)
 3. [REST Endpoints](#rest_endpoints)
-  1. [List](#list)
-  2. [Retrieve](#retrieve)
-  3. [Create](#create)
-  4. [Replace](#replace)
-  5. [Delete](#delete)
+    1. [List](#list)
+    2. [Retrieve](#retrieve)
+    3. [Create](#create)
+    4. [Replace](#replace)
+    5. [Delete](#delete)
 
-## Attributes <a name="attributes"></a>
+<!-- ## Attributes <a name="attributes"></a> -->
+## Attributes
+
 * `id`: The card's unique id in the Database
 * `s_id`: A number representing the species number in the National Poke&#769;dex
 * `name`: Either the name of the card or any desired nickname
