@@ -6,11 +6,8 @@
 # Pokémon Card Collection
 
 [pikachu]: img/25.gif
-
 [venusaur]: img/3.gif
-
 [charizard]: img/6.gif
-
 [blastoise]: img/9.gif
 
 
@@ -39,6 +36,8 @@
 
 # About
 
+[Back to Top](#table-of-contents)
+
 # cards
 
 ## Attributes
@@ -53,6 +52,8 @@
 * `atkType1`: The type of the card's first attack
 * `atkType2`: The type of the card's first attack
 * `rarity`: Describes how rare the card is
+
+[Back to Top](#table-of-contents)
 
 # Database
 
@@ -83,6 +84,8 @@ CREATE TABLE types
 1. Run: `./build_database.sh`
 1. Type `y` to build the database or `n` to cancel
 
+[Back to Top](#table-of-contents)
+
 # Server
 
 ## Starting the Server
@@ -91,6 +94,8 @@ CREATE TABLE types
 1. Navigate to the `Pokemon-Card-Collection` directory
 1. Run: `chmod 744 startServer`
 1. Run: `./startServer`
+
+[Back to Top](#table-of-contents)
 
 ## REST Endpoints
 
@@ -114,8 +119,12 @@ CREATE TABLE types
 	- **Method:** `DELETE`
 	- **Path:** `http://localhost:8080/cards/card0`
 
+[Back to Top](#table-of-contents)
+
 # Webpage
 
 ## Open the Webpage
 1. Open Safari
 1. File -> Open -> {Pokemon-Card-Collection}/index.html
+
+[Back to Top](#table-of-contents)
