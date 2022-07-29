@@ -22,7 +22,7 @@
 
 # Table of Contents
 1. [Attributes](#Attributes)
-2. [Database Schema](#db_schema)
+2. [Database Schema](#Database_Schema)
 3. [REST Endpoints](#rest_endpoints)
     1. [List](#list)
     2. [Retrieve](#retrieve)
