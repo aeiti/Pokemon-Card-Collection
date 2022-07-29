@@ -59,8 +59,8 @@ CREATE TABLE names
 CREATE TABLE types
   (id INTEGER PRIMARY KEY, type VARCHAR(255));
 ```
-
-## REST Endpoints <a name="rest_endpoints"></a>
+<a name="rest_endpoints"></a>
+## REST Endpoints
 
 - ### List <a name="list"></a>
 	- **Method:** `GET`
