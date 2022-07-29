@@ -20,15 +20,24 @@
 
 # Table of Contents
 1. [Table of Contents](#table-of-contents)
+1. [About](#about)
 1. [cards](#cards)
     1. [Attributes](#attributes)
-1. [Database Schema](#database-schema)
-1. [REST Endpoints](#rest-endpoints)
-    1. [List](#list)
-    1. [Retrieve](#retrieve)
-    1. [Create](#create)
-    1. [Replace](#replace)
-    1. [Delete](#delete)
+1. [Database](#database)
+    1. [Database Schema](#database-schema)
+    1. [Building the Database](#building-the-database)
+1. [Server](#server)
+    1. [Starting the Server](#starting-the-server)
+    1. [REST Endpoints](#rest-endpoints)
+          1. [List](#list)
+          1. [Retrieve](#retrieve)
+          1. [Create](#create)
+          1. [Replace](#replace)
+          1. [Delete](#delete)
+1. [Webpage](#webpage)
+    1. [Open the Webpage](#open-the-webpage)
+
+# About
 
 # cards
 
@@ -45,7 +54,9 @@
 * `atkType2`: The type of the card's first attack
 * `rarity`: Describes how rare the card is
 
-# Database Schema
+# Database
+
+## Database Schema
 
 ```sql
 CREATE TABLE cards
@@ -64,25 +75,47 @@ CREATE TABLE types
   (id INTEGER PRIMARY KEY, type VARCHAR(255));
 ```
 
-<!-- ## REST Endpoints <a name="rest_endpoints"></a> -->
-# REST Endpoints
+## Building the Database
 
-- ## List
+1. Open Terminal
+1. Navigate to the `Pokemon-Card-Collection` directory
+1. Run: `chmod 744 build_database.sh`
+1. Run: `./build_database.sh`
+1. Type `y` to build the database or `n` to cancel
+
+# Server
+
+## Starting the Server
+
+1. Open Terminal
+1. Navigate to the `Pokemon-Card-Collection` directory
+1. Run: `chmod 744 startServer`
+1. Run: `./startServer`
+
+## REST Endpoints
+
+- ### List
 	- **Method:** `GET`
 	- **Path:** `http://localhost:8080/cards`
 
-- ## Retrieve
+- ### Retrieve
 	- **Method:** `GET`
 	- **Path:** `http://localhost:8080/cards/card0`
 
-- ## Create
+- ### Create
 	- **Method:** `POST`
 	- **Path:** `http://localhost:8080/cards`
 
-- ## Replace
+- ### Replace
 	- **Method:** `PATCH`
 	- **Path:** `http://localhost:8080/cards/card0`
 
-- ## Delete
+- ### Delete
 	- **Method:** `DELETE`
 	- **Path:** `http://localhost:8080/cards/card0`
+
+# Webpage
+
+## Open the Webpage
+1. Open Safari
+1. File -> Open -> {Pokemon-Card-Collection}/index.html
