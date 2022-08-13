@@ -5,3 +5,4 @@ db/pokemon.db
 
 .DS_Store
 *.pyc
+Logger
