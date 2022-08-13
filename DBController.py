@@ -17,7 +17,6 @@ def dict_factory(cursor, row):
 
 dbDir = "db/"
 class DBController:
-
     def __init__(self):
         self.DB_NAME = dbDir + "pokemon.db"
         self.connection = sqlite3.connect(self.DB_NAME)

@@ -2,22 +2,34 @@
 main.py
 Adam Manning (C) 2022
 """
+# Needed to import Logger correctly
+import sys
+sys.path.append("Logger")
 
 from http.server import HTTPServer
 from PokemonHTTPRequestHandler import PokemonHTTPRequestHandler
+
+from Logger.logger import Logger
 
 def main():
     """
     Program's main function
     """
 
+    log = Logger()
+
+    log.info("Logger started")
+
     ip_address = "0.0.0.0"
     port_num = 8080
 
-    listen = (ip_address, port_num)
+    log.debug(f"IP Address: {ip_address}")
+    log.debug(f"Port #: {port_num}")
 
+    listen = (ip_address, port_num)
     server = HTTPServer(listen, PokemonHTTPRequestHandler)
 
+    log.info(f"Listening on {ip_address}:{port_num}")
     print(f"Listening on {ip_address}:{port_num}")
 
     server.serve_forever()
