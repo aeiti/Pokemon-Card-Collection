@@ -54,6 +54,7 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         # pylint: enable=global-statement
 
         num_requests = num_requests + 1
+        log.log_info(f"Current request count: {num_requests}")
 
     def requestStarted(self, requestType):
         self.incRequestCount()
