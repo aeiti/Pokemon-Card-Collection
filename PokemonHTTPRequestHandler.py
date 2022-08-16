@@ -2,9 +2,6 @@
 PokemonHTTPRequestHandler.py
 Adam Manning (C) 2021
 """
-# Needed to import Logger correctly
-# import sys
-# sys.path.append("Logger")
 
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs
