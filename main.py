@@ -16,6 +16,7 @@ def main():
     Program's main function
     """
 
+    log.enable_logs()
     log.open_logs()
 
     log.log_info("Logger started")
