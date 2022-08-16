@@ -17,7 +17,6 @@ def main():
     """
 
     log.enable_logs()
-    log.open_logs()
 
     log.log_info("Logger started")
 
