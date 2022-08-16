@@ -6,6 +6,8 @@ Adam Manning (C) 2022
 import sys
 sys.path.append("Logger")
 
+# import Logger.logger as log
+
 from http.server import HTTPServer
 from PokemonHTTPRequestHandler import PokemonHTTPRequestHandler
 
