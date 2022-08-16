@@ -11,8 +11,10 @@ from urllib.parse import parse_qs
 
 import json
 
+import Logger.logger as log
+
 from DBController import DBController
-from Logger.logger import Logger
+
 
 num_requests = 0
 
