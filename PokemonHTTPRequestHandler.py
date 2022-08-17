@@ -29,6 +29,25 @@ ERR_404 = ERR.format(404)
 
 OUTPUT_MODE = "verbose"
 
+# String constants
+STR_GET = "GET"
+STR_POST = "POST"
+STR_PUT = "PUT"
+STR_DELETE = "DELETE"
+STR_PATCH = "PATCH"
+STR_COPY = "COPY"
+STR_HEAD = "HEAD"
+STR_OPTIONS = "OPTIONS"
+STR_LINK = "LINK"
+STR_UNLINK = "UNLINK"
+STR_PURGE = "PURGE"
+STR_LOCK = "LOCK"
+STR_UNLOCK = "UNLOCK"
+STR_PROPFIND = "PROPFIND"
+STR_VIEW = "VIEW"
+
+STR_REQ_RECIEVED = "{0} request recieved"
+
 # Card keys
 CARD_SPECIES_ID = "s_id"
 CARD_NAME = "name"
@@ -46,26 +65,37 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
             print(arg)
 
     def incRequestCount(self):
+        log.log_debug("Increasing request count")
         # pylint: disable=global-statement
         global num_requests
         # pylint: enable=global-statement
 
         num_requests = num_requests + 1
+
         log.log_info(f"Current request count: {num_requests}")
 
     def requestStarted(self, requestType):
+        log.log_debug(f"{requestType} request started")
+
         self.incRequestCount()
+
         print(f"START REQUEST NUMBER {num_requests}")
         self.showPath(requestType)
 
     def requestEnded(self):
+        log.log_debug("Request ended")
+
         print(f"END REQUEST NUMBER {num_requests}")
         print()
 
     def showPath(self, requestType):
+        log.log_debug("Showing path")
+
         print(f"{requestType} PATH: {self.path}")
 
     def extractCardIdFromPath(self):
+        log.log_debug("Extracting card ID from path")
+
         split_path = self.path.split('/')
 
         if len(split_path) == 3:
@@ -82,28 +112,39 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         return -1
 
     def readPageFromFile(self, filename):
+        log.log_debug("Reading file from page: {filename}")
+
         with open(filename, encoding=UTF8) as f:
             for line in f:
                 self.wfile.write(line)
 
     def enableCORS(self):
+        log.log_debug("CORS enabled")
+
         self.send_header(HEADER_CORS, "*")
 
     def sendCode404(self):
+        log.log_debug("Sending Code 404")
+
         self.send_response(404)
         self.end_headers()
 
     def sendPage404(self):
+        log.log_debug("Sending Page 404")
+
         self.send_response(404)
         self.send_header(HEADER_CONTENT_TYPE, CONTENT_TYPE_HTML)
         self.readPageFromFile(ERR_404)
 
     def getCardFromDB(self):
-        db = DBController()
-
         card_id = self.path.split("/")[2][4:]
 
+        log.log_debug(f"Retreiving card {card_id} from database")
+
+        db = DBController()
+
         if db.cardExists(card_id):
+            log.log_debug(f"Card {card_id} found in database")
             card = db.getCard(card_id)
 
             self.send_response(200)
@@ -116,11 +157,15 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(bytes(json_card, UTF8))
 
         else:
+            log.log_debug(f"Unable to find card {card_id} in database")
+
             self.send_response(404)
             self.enableCORS()
             self.end_headers()
 
     def getCardsFromDB(self):
+        log.log_debug("Retrieving cards from database")
+
         db = DBController()
 
         cards = db.getCards()
@@ -137,6 +182,8 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(json_cards, UTF8))
 
     def getNamesFromDB(self):
+        log.log_debug("Retrieving names from database")
+
         db = DBController()
 
         names = db.getNames()
@@ -150,6 +197,8 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(json_names, UTF8))
 
     def getRaritiesFromDB(self):
+        log.log_debug("Retrieving rarities from database")
+
         db = DBController()
 
         rarities = db.getRarities()
@@ -162,6 +211,8 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(json_rarities, UTF8))
 
     def getTypesFromDB(self):
+        log.log_debug("Retrieving types from database")
+
         db = DBController()
 
         types = db.getTypes()
@@ -175,7 +226,9 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(json_types, UTF8))
 
     def do_GET(self):
-        self.requestStarted("GET")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_GET))
+
+        self.requestStarted(STR_GET)
 
         if self.path == "/cards":
             self.verbosePrint("Reading cards from DB")
@@ -203,7 +256,9 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.requestEnded()
 
     def do_POST(self):
-        self.requestStarted("POST")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_POST))
+
+        self.requestStarted(STR_POST)
 
         if self.path == "/cards":
             body_len = int(self.headers["Content-Length"])
@@ -258,7 +313,9 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.requestEnded()
 
     def do_PUT(self):
-        self.requestStarted("PATCH")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_PUT))
+
+        self.requestStarted(STR_PUT)
 
         card_num = int(self.extractCardIdFromPath())
 
@@ -312,7 +369,9 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.requestEnded()
 
     def do_DELETE(self):
-        self.requestStarted("DELETE")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_DELETE))
+
+        self.requestStarted(STR_DELETE)
 
         split_path = self.path.split('/')
 
@@ -340,22 +399,30 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.requestEnded()
 
     def do_PATCH(self):
-        self.requestStarted("PATCH")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_PATCH))
+
+        self.requestStarted(STR_PATCH)
         self.sendCode404()
         self.requestEnded()
 
     def do_COPY(self):
-        self.requestStarted("COPY")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_COPY))
+
+        self.requestStarted(STR_COPY)
         self.sendCode404()
         self.requestEnded()
 
     def do_HEAD(self):
-        self.requestStarted("HEAD")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_HEAD))
+
+        self.requestStarted(STR_HEAD)
         self.sendCode404()
         self.requestEnded()
 
     def do_OPTIONS(self):
-        self.requestStarted("OPTIONS")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_OPTIONS))
+
+        self.requestStarted(STR_OPTIONS)
 
         self.send_response(200)
 
@@ -369,36 +436,50 @@ class PokemonHTTPRequestHandler(BaseHTTPRequestHandler):
         self.requestEnded()
 
     def do_LINK(self):
-        self.requestStarted("LINK")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_LINK))
+
+        self.requestStarted(STR_LINK)
         self.sendCode404()
         self.requestEnded()
 
     def do_UNLINK(self):
-        self.requestStarted("UNLINK")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_UNLINK))
+
+        self.requestStarted(STR_UNLINK)
         self.sendCode404()
         self.requestEnded()
 
     def do_PURGE(self):
-        self.requestStarted("PURGE")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_PURGE))
+
+        self.requestStarted(STR_PURGE)
         self.sendCode404()
         self.requestEnded()
 
     def do_LOCK(self):
-        self.requestStarted("LOCK")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_LOCK))
+
+        self.requestStarted(STR_LOCK)
         self.sendCode404()
         self.requestEnded()
 
     def do_UNLOCK(self):
-        self.requestStarted("UNLOCK")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_UNLOCK))
+
+        self.requestStarted(STR_UNLOCK)
         self.sendCode404()
         self.requestEnded()
 
     def do_PROPFIND(self):
-        self.requestStarted("PROPFIND")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_PROPFIND))
+
+        self.requestStarted(STR_PROPFIND)
         self.sendCode404()
         self.requestEnded()
 
     def do_VIEW(self):
-        self.requestStarted("VIEW")
+        log.log_debug(STR_REQ_RECIEVED.format(STR_VIEW))
+
+        self.requestStarted(STR_VIEW)
         self.sendCode404()
         self.requestEnded()
